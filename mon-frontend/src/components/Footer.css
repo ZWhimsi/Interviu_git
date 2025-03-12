@@ -1,0 +1,42 @@
+.footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem 0;
+  /* Use the same light beige (#f5f5dc) as your main background */
+  background-color: #f5f5dc;
+  /* Light border on top for visual separation */
+  border-top: 1px solid #e5e7eb;
+  /* text-gray-700 for light mode */
+}
+
+/* Dark mode */
+.dark .footer-container {
+  background-color: #1f2937; /* Dark background */
+  border-top: 1px solid #374151; /* Dark border */
+}
+
+.footer-links {
+  display: flex;
+  gap: 1rem; /* space between links */
+  font-size: 1.25rem; /* text-xl */
+  font-weight: bold;
+  color: #374151; /* text-gray-700 for light mode */
+}
+
+/* Dark mode text color */
+.dark .footer-links {
+  color: #e5e7eb; /* text-gray-200 for dark mode */
+}
+
+.footer-link {
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+/* Hover: subtle purple color to match the rest of the app’s theme */
+.footer-link:hover {
+  text-decoration: underline;
+  color: #6b46c1; /* Purple-600 or your chosen accent color */
+}

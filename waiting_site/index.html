@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InterviU – Coming Soon</title>
+    <!-- Google Font (Poppins Semibold) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Canvas for pixel fireworks/particle animation -->
+    <canvas id="fireworks"></canvas>
+
+    <div class="coming-soon-container">
+      <!-- SVG Logo (kept with brand gradient fill) -->
+      <svg
+        class="interviu-logo"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 74.51 167.41"
+      >
+        <defs>
+          <linearGradient
+            id="linear-gradient"
+            x1="-17.75"
+            y1="154.64"
+            x2="50.31"
+            y2="-3.62"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0" stop-color="#5639fe" />
+            <stop offset="1" stop-color="#66e8fd" />
+          </linearGradient>
+          <linearGradient
+            id="linear-gradient-2"
+            x1="14.84"
+            y1="168.66"
+            x2="82.91"
+            y2="10.4"
+            xlink:href="#linear-gradient"
+          />
+        </defs>
+        <g>
+          <circle
+            fill="url(#linear-gradient)"
+            cx="37.25"
+            cy="26.74"
+            r="26.74"
+          />
+          <path
+            fill="url(#linear-gradient-2)"
+            d="M48.27,60.99l-7.47,11.78,11.49,41.86-15.04,15.04-15.04-15.04,11.49-41.86-7.47-11.78
+               C9.24,66.24-2.33,83.27.4,101.93l9.58,65.48h54.55l9.58-65.48c2.73-18.67-8.84-35.69-25.84-40.95Z"
+          />
+        </g>
+      </svg>
+
+      <h1 class="company-name">InterviU</h1>
+      <!-- “Coming Soon” with a perpetual “breathe” animation -->
+      <p class="coming-soon-text">Coming Soon</p>
+    </div>
+
+    <!-- Particle animation script -->
+    <script>
+      // Grab the canvas and context
+      const canvas = document.getElementById("fireworks");
+      const ctx = canvas.getContext("2d");
+
+      // Resize canvas to fill window
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas(); // initial sizing
+
+      // Array of possible particle colors
+      const PARTICLE_COLORS = ["#070B54", "#5639FE", "#5E91FE", "#66E8FD"];
+
+      // Utility to get random float in [min, max)
+      function random(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      class Particle {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+          // Faster initial speed for the explosion
+          this.speed = random(2, 8);
+          this.angle = random(0, 2 * Math.PI);
+          // Convert speed + angle to velocity
+          this.vx = Math.cos(this.angle) * this.speed;
+          this.vy = Math.sin(this.angle) * this.speed;
+
+          // “Pixel” size for a blocky look
+          this.size = random(3, 5);
+
+          // Pick a random solid color (no gradient)
+          this.color =
+            PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)];
+
+          // Fade out over time
+          this.alpha = 1;
+          this.life = random(40, 80); // frames to live
+        }
+
+        update() {
+          // Apply friction
+          this.vx *= 0.97;
+          this.vy *= 0.97;
+          // Gentle gravity for slower downfall
+          this.vy += 0.05;
+
+          this.x += this.vx;
+          this.y += this.vy;
+
+          // Fade out
+          this.alpha -= 1 / this.life;
+          if (this.alpha < 0) this.alpha = 0;
+        }
+
+        draw() {
+          ctx.save();
+          ctx.globalAlpha = this.alpha;
+          ctx.fillStyle = this.color;
+          // Draw a small square
+          ctx.fillRect(this.x, this.y, this.size, this.size);
+          ctx.restore();
+        }
+      }
+
+      const particles = [];
+
+      // Create a “firework” of multiple particles
+      function createFirework() {
+        const x = random(0, canvas.width);
+        // Explosions mostly in the top half
+        const y = random(0, canvas.height * 0.5);
+        const count = Math.floor(random(15, 40)); // number of particles
+        for (let i = 0; i < count; i++) {
+          particles.push(new Particle(x, y));
+        }
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        // Clear with a light overlay to create trailing effect
+        ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Update & draw all particles
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.update();
+          p.draw();
+          // Remove fully faded particles
+          if (p.alpha <= 0) {
+            particles.splice(i, 1);
+          }
+        }
+      }
+
+      // Spawn new fireworks periodically
+      setInterval(createFirework, 400);
+
+      // Start the animation
+      animate();
+    </script>
+  </body>
+</html>

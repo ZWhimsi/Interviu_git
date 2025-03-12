@@ -1,0 +1,55 @@
+/* Container styling */
+.landing-page-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  /* Replace white with a light beige that contrasts well with light purple accents */
+  background-color: #f5f5dc;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Dark mode override for container */
+.dark .landing-page-container {
+  background-color: #111827; /* Tailwind's gray-900 */
+}
+
+/* Header */
+.landing-page-header {
+  flex: none;
+}
+
+/* Main content area */
+.landing-page-main {
+  flex-grow: 1;
+  display: flex;
+}
+
+/* Left section: Video Section */
+.landing-page-video-section {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Right section: SignIn Form & Social SignUp */
+.landing-page-form-section {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+/* Container for SignInForm and SocialSignUpButtons */
+.landing-page-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* Equivalent to Tailwind's space-y-4 */
+}
+
+/* Footer */
+.landing-page-footer {
+  flex: none;
+}

@@ -6,8 +6,12 @@ export default function Header() {
   const { darkMode, toggleDarkMode } = useDarkMode();
   const [scrollDirection, setScrollDirection] = useState("none");
   const [lastScrollTop, setLastScrollTop] = useState(0);
+  const [currentPath, setCurrentPath] = useState("/");
 
   useEffect(() => {
+    // Set current path
+    setCurrentPath(window.location.pathname);
+
     const handleScroll = () => {
       const st = window.pageYOffset || document.documentElement.scrollTop;
       if (st > lastScrollTop && st > 50) {
@@ -23,6 +27,9 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollTop]);
+
+  // Determine if we're on the sign-in page
+  const isSignInPage = currentPath === "/signin";
 
   return (
     <header
@@ -100,7 +107,7 @@ export default function Header() {
 
       <a href="/" className="header-brand">
         <div className="header-logo">
-          <svg viewBox=" 0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient
                 id="lg1"
@@ -139,9 +146,9 @@ export default function Header() {
         <span className="header-brand-name">InterviU</span>
       </a>
 
-      {/* Sign In Button */}
-      <a href="/signin" className="header-signin-button">
-        Sign In
+      {/* Conditional Sign In/Sign Up Button */}
+      <a href={isSignInPage ? "/" : "/signin"} className="header-auth-button">
+        {isSignInPage ? "Sign Up" : "Sign In"}
       </a>
     </header>
   );

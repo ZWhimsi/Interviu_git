@@ -15,6 +15,24 @@ export default function App() {
       setCurrentPath(window.location.pathname);
     };
 
+    // Update page title based on current path
+    const updatePageTitle = () => {
+      let pageTitle = "InterviU - Ace Your Next Interview";
+
+      switch (currentPath) {
+        case "/signin":
+          pageTitle = "Sign In | InterviU";
+          break;
+        default:
+          pageTitle = "InterviU - Ace Your Next Interview";
+      }
+
+      document.title = pageTitle;
+    };
+
+    // Call updatePageTitle immediately and on path change
+    updatePageTitle();
+
     // Listen for popstate events (browser back/forward)
     window.addEventListener("popstate", handleLocationChange);
 
@@ -50,13 +68,7 @@ export default function App() {
       window.removeEventListener("popstate", handleLocationChange);
       document.removeEventListener("click", handleNavigation);
     };
-  }, []);
-
-  // Debug dark mode on initial load
-  console.log(
-    "App mounted, checking dark mode:",
-    document.documentElement.classList.contains("dark")
-  );
+  }, [currentPath]);
 
   // Simple routing logic
   const renderPage = () => {

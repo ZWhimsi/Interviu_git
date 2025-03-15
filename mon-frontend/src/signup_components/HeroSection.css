@@ -5,6 +5,12 @@
   justify-content: center;
   overflow-x: hidden; /* Prevent horizontal scroll */
   position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--color-primary-rgb), 0.05) 0%,
+    rgba(94, 145, 254, 0.08) 50%,
+    rgba(102, 232, 253, 0.12) 100%
+  );
 }
 
 .hero-section-container {
@@ -62,12 +68,8 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  align-items: center;
   min-width: 0; /* Prevent flex child from overflowing */
-}
-
-.hero-section-social-buttons {
-  margin-top: -1rem; /* Adjust spacing between form and social buttons */
 }
 
 /* Animation for the fade-in effect */
@@ -99,6 +101,9 @@
 /* Make video section more compact for side-by-side layout */
 .hero-section .video-section-container {
   padding: 2rem;
+  background-color: var(
+    --component-bg
+  ); /* Using new variable for better contrast */
 }
 
 .hero-section .video-section-title {
@@ -109,11 +114,6 @@
 .hero-section .video-section-description {
   font-size: 1rem;
   margin-bottom: 1.5rem;
-}
-
-/* Ensure social signup container is appropriately sized */
-.hero-section .social-signup-buttons-container {
-  max-width: 100%;
 }
 
 /* Responsive adjustments */

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import VideoSection from "../signup_components/VideoSection";
-import SignUpForm from "../signup_components/SignUpForm";
-import SocialSignUpButtons from "../signup_components/SocialSignUpButtons";
+import VideoSection from "./VideoSection";
+import SignUpForm from "./SignUpForm";
 import "./HeroSection.css";
 
 export default function HeroSection() {
@@ -51,9 +50,6 @@ export default function HeroSection() {
           </div>
           <div className="hero-section-form-column">
             <SignUpForm />
-            <div className="hero-section-social-buttons">
-              <SocialSignUpButtons />
-            </div>
           </div>
         </div>
       </div>

@@ -204,6 +204,26 @@
   }
 }
 
+/* Social buttons section */
+.signin-social-buttons {
+  margin-top: 2rem;
+}
+
+.signin-social-buttons .social-auth-buttons-container {
+  padding: 0;
+  box-shadow: none;
+  border: none;
+  animation: none;
+  opacity: 1;
+  transform: none;
+  background-color: transparent;
+}
+
+.signin-social-buttons .social-auth-buttons-container:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 .signin-register {
   text-align: center;
   margin-top: 2rem;
@@ -275,5 +295,9 @@
     flex-direction: column;
     gap: 1rem;
     align-items: flex-start;
+  }
+
+  .signin-social-buttons {
+    margin-top: 1.5rem;
   }
 }

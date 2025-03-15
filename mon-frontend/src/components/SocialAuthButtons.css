@@ -1,0 +1,180 @@
+.social-auth-buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  width: 100%;
+  max-width: 100%;
+  background-color: var(--form-bg);
+  padding: 1.5rem 2rem;
+  border-radius: 1.25rem;
+  border: 1px solid var(--form-border);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
+  animation: slide-up 0.6s ease-out forwards;
+  animation-delay: 0.2s;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.social-auth-buttons-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.social-auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 0 0 1.5rem;
+  color: var(--color-text);
+  opacity: 0.6;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.social-auth-divider::before,
+.social-auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--form-border);
+  margin: 0 0.75rem;
+}
+
+.social-auth-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--form-border);
+  border-radius: 0.625rem;
+  padding: 0.875rem 1rem;
+  background-color: var(--input-bg);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.social-auth-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+}
+
+.social-auth-button:active {
+  transform: translateY(-1px);
+}
+
+.social-auth-button-text {
+  color: var(--color-text);
+  font-weight: 500;
+  font-size: 0.925rem;
+  letter-spacing: 0.01em;
+}
+
+.social-auth-icon {
+  position: absolute;
+  left: 1.25rem;
+  width: 22px;
+  height: 22px;
+  transition: transform 0.3s ease;
+}
+
+.social-auth-button:hover .social-auth-icon {
+  transform: scale(1.1);
+}
+
+/* Provider-specific styling */
+.auth-google {
+  border-color: rgba(66, 133, 244, 0.4);
+}
+
+.auth-google:hover {
+  background-color: rgba(66, 133, 244, 0.05);
+}
+
+.auth-apple {
+  border-color: rgba(0, 0, 0, 0.4);
+}
+
+.auth-apple:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.auth-microsoft {
+  border-color: rgba(0, 120, 215, 0.4);
+}
+
+.auth-microsoft:hover {
+  background-color: rgba(0, 120, 215, 0.05);
+}
+
+/* Add staggered animation for buttons */
+.social-auth-button:nth-child(2) {
+  animation: fade-in-up 0.5s ease forwards;
+  animation-delay: 0.3s;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.social-auth-button:nth-child(3) {
+  animation: fade-in-up 0.5s ease forwards;
+  animation-delay: 0.4s;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.social-auth-button:nth-child(4) {
+  animation: fade-in-up 0.5s ease forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .social-auth-buttons-container {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .social-auth-buttons-container {
+    padding: 1.25rem;
+  }
+
+  .social-auth-button {
+    padding: 0.75rem;
+  }
+
+  .social-auth-icon {
+    left: 1rem;
+    width: 20px;
+    height: 20px;
+  }
+
+  .social-auth-button-text {
+    font-size: 0.875rem;
+  }
+}

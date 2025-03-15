@@ -1,5 +1,6 @@
 import { useState } from "react";
-import "./SignUpForm.css"; // We'll create this file next
+import SocialAuthButtons from "../components/SocialAuthButtons";
+import "./SignUpForm.css";
 
 export default function SignUpForm() {
   const [name, setName] = useState("");
@@ -78,104 +79,111 @@ export default function SignUpForm() {
   };
 
   return (
-    <form
-      className={`sign-up-form-container ${
-        Object.keys(errors).length > 0 ? "form-error" : ""
-      }`}
-      onSubmit={handleSubmit}
-    >
-      <h2 className="sign-up-form-title">Sign Up</h2>
-
-      <label className="sign-up-form-label">
-        Name
-        <input
-          type="text"
-          placeholder="Your name"
-          className="sign-up-form-input"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          aria-required="true"
-          aria-invalid={!!errors.name}
-          aria-describedby={errors.name ? "name-error" : undefined}
-        />
-        {errors.name && (
-          <span className="sign-up-form-error" id="name-error">
-            {errors.name}
-          </span>
-        )}
-      </label>
-
-      <label className="sign-up-form-label">
-        Email
-        <input
-          type="email"
-          placeholder="your.email@example.com"
-          className="sign-up-form-input"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          aria-required="true"
-          aria-invalid={!!errors.email}
-          aria-describedby={errors.email ? "email-error" : undefined}
-        />
-        {errors.email && (
-          <span className="sign-up-form-error" id="email-error">
-            {errors.email}
-          </span>
-        )}
-      </label>
-
-      <label className="sign-up-form-label">
-        Password
-        <input
-          type="password"
-          placeholder="********"
-          className="sign-up-form-input"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          aria-required="true"
-          aria-invalid={!!errors.password}
-          aria-describedby={errors.password ? "password-error" : undefined}
-          minLength={8}
-        />
-        {errors.password && (
-          <span className="sign-up-form-error" id="password-error">
-            {errors.password}
-          </span>
-        )}
-      </label>
-
-      <label className="sign-up-form-label">
-        Confirm Password
-        <input
-          type="password"
-          placeholder="********"
-          className="sign-up-form-input"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          aria-required="true"
-          aria-invalid={!!errors.confirmPassword}
-          aria-describedby={
-            errors.confirmPassword ? "confirm-password-error" : undefined
-          }
-        />
-        {errors.confirmPassword && (
-          <span className="sign-up-form-error" id="confirm-password-error">
-            {errors.confirmPassword}
-          </span>
-        )}
-      </label>
-
-      <button
-        type="submit"
-        className={`sign-up-form-button ${isLoading ? "loading" : ""}`}
-        disabled={isLoading}
+    <div className="sign-up-container">
+      <form
+        className={`sign-up-form-container ${
+          Object.keys(errors).length > 0 ? "form-error" : ""
+        }`}
+        onSubmit={handleSubmit}
       >
-        {isLoading ? "Signing Up..." : "Sign Up"}
-      </button>
+        <h2 className="sign-up-form-title">Sign Up</h2>
 
-      <div className="sign-up-form-login-link">
-        Already have an account? <a href="/signin">Sign In</a>
+        <label className="sign-up-form-label">
+          Name
+          <input
+            type="text"
+            placeholder="Your name"
+            className="sign-up-form-input"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            aria-required="true"
+            aria-invalid={!!errors.name}
+            aria-describedby={errors.name ? "name-error" : undefined}
+          />
+          {errors.name && (
+            <span className="sign-up-form-error" id="name-error">
+              {errors.name}
+            </span>
+          )}
+        </label>
+
+        <label className="sign-up-form-label">
+          Email
+          <input
+            type="email"
+            placeholder="your.email@example.com"
+            className="sign-up-form-input"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            aria-required="true"
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "email-error" : undefined}
+          />
+          {errors.email && (
+            <span className="sign-up-form-error" id="email-error">
+              {errors.email}
+            </span>
+          )}
+        </label>
+
+        <label className="sign-up-form-label">
+          Password
+          <input
+            type="password"
+            placeholder="********"
+            className="sign-up-form-input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            aria-required="true"
+            aria-invalid={!!errors.password}
+            aria-describedby={errors.password ? "password-error" : undefined}
+            minLength={8}
+          />
+          {errors.password && (
+            <span className="sign-up-form-error" id="password-error">
+              {errors.password}
+            </span>
+          )}
+        </label>
+
+        <label className="sign-up-form-label">
+          Confirm Password
+          <input
+            type="password"
+            placeholder="********"
+            className="sign-up-form-input"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            aria-required="true"
+            aria-invalid={!!errors.confirmPassword}
+            aria-describedby={
+              errors.confirmPassword ? "confirm-password-error" : undefined
+            }
+          />
+          {errors.confirmPassword && (
+            <span className="sign-up-form-error" id="confirm-password-error">
+              {errors.confirmPassword}
+            </span>
+          )}
+        </label>
+
+        <button
+          type="submit"
+          className={`sign-up-form-button ${isLoading ? "loading" : ""}`}
+          disabled={isLoading}
+        >
+          {isLoading ? "Signing Up..." : "Sign Up"}
+        </button>
+
+        <div className="sign-up-form-login-link">
+          Already have an account? <a href="/signin">Sign In</a>
+        </div>
+      </form>
+
+      {/* Social auth buttons */}
+      <div className="sign-up-social-buttons">
+        <SocialAuthButtons mode="signup" />
       </div>
-    </form>
+    </div>
   );
 }

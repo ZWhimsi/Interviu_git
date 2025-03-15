@@ -1,9 +1,16 @@
+.sign-up-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 24rem;
+}
+
 .sign-up-form-container {
   padding: 2.5rem;
   border-radius: 1.25rem;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
   width: 100%;
-  max-width: 24rem;
   background-color: var(--form-bg);
   border: 1px solid var(--form-border);
   transition: all 0.4s ease;
@@ -83,13 +90,13 @@
     var(--gradient-start),
     var(--gradient-end)
   );
-  color: var(--button-text);
+  color: white;
+  border: none;
   font-weight: 600;
   padding: 0.875rem 1rem;
   border-radius: 0.625rem;
-  transition: all 0.3s ease;
-  border: none;
   cursor: pointer;
+  transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(86, 57, 254, 0.25);
   letter-spacing: 0.02em;
   position: relative;
@@ -216,4 +223,40 @@
 
 .sign-up-form-login-link a:hover {
   text-decoration: underline;
+}
+
+/* Social buttons section */
+.sign-up-social-buttons .social-auth-buttons-container {
+  box-shadow: none;
+  animation: social-fade-in 0.6s ease-out forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes social-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sign-up-form-container {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sign-up-form-container {
+    padding: 1.5rem;
+  }
+
+  .sign-up-form-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
 }

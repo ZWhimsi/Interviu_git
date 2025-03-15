@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "../signup_components/Header";
 import Footer from "../signup_components/Footer";
+import SocialAuthButtons from "../components/SocialAuthButtons";
 import "./SignInPage.css";
 
 export default function SignInPage() {
@@ -126,6 +127,11 @@ export default function SignInPage() {
               {isLoading ? "Signing In..." : "Sign In"}
             </button>
           </form>
+
+          {/* Social auth buttons */}
+          <div className="signin-social-buttons">
+            <SocialAuthButtons mode="signin" />
+          </div>
 
           <div className="signin-register">
             Don't have an account? <a href="/">Sign Up</a>

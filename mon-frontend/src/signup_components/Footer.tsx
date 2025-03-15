@@ -30,7 +30,7 @@ export default function Footer() {
       <div className="footer-content">
         <div className="footer-brand">
           <div className="footer-logo">
-            <svg viewBox="0 5 74.51 110" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient
                   id="footerLg1"

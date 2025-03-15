@@ -109,7 +109,6 @@
 .header-logo svg {
   width: 100%;
   height: auto;
-  transform: translateY(3px);
 }
 
 .header-brand:hover .header-logo {
@@ -155,10 +154,10 @@
   transform-origin: left;
 }
 
-/* Sign In Button Styles */
-.header-signin-button {
+/* Auth Button Styles - renamed from header-signin-button */
+.header-auth-button {
   position: absolute;
-  right: 1.5rem;
+  right: 2rem; /* Increased from 1.5rem to create more space */
   top: 50%;
   transform: translateY(-50%);
   background: linear-gradient(
@@ -175,9 +174,11 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 10px rgba(86, 57, 254, 0.2);
+  text-decoration: none;
+  text-align: center;
 }
 
-.header-signin-button:hover {
+.header-auth-button:hover {
   transform: translateY(-50%) scale(1.05);
   box-shadow: 0 6px 15px rgba(86, 57, 254, 0.25);
 }
@@ -202,9 +203,9 @@
     left: 1rem;
   }
 
-  .header-signin-button {
+  .header-auth-button {
     padding: 0.5rem 0.9rem;
     font-size: 0.8rem;
-    right: 1rem;
+    right: 1.2rem; /* Adjusted for smaller screens */
   }
 }

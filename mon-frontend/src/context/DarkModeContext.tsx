@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 
 interface DarkModeContextProps {
   darkMode: boolean;
@@ -10,16 +16,55 @@ const DarkModeContext = createContext<DarkModeContextProps>({
   toggleDarkMode: () => {},
 });
 
-export const DarkModeProvider = ({ children }: { children: ReactNode }) => {
-  const [darkMode, setDarkMode] = useState(false);
+export function DarkModeProvider({ children }: { children: ReactNode }) {
+  // Get initial dark mode state
+  const [darkMode, setDarkMode] = useState(() => {
+    // First check localStorage
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode !== null) {
+      return savedMode === "true";
+    }
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    if (!darkMode) {
+    // Then check system preference
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      return true;
+    }
+
+    // Default to light mode
+    return false;
+  });
+
+  // Apply dark mode changes
+  useEffect(() => {
+    // Debug
+    console.log("Dark mode state changed:", darkMode);
+
+    // Apply class to html element
+    if (darkMode) {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
+
+    // Save to localStorage
+    localStorage.setItem("darkMode", String(darkMode));
+
+    // Apply transition class for smooth theme changes
+    document.body.classList.add("theme-transition");
+    const timer = setTimeout(() => {
+      document.body.classList.remove("theme-transition");
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [darkMode]);
+
+  // Toggle function
+  const toggleDarkMode = () => {
+    console.log("Toggle dark mode called, current state:", darkMode);
+    setDarkMode((prev) => !prev);
   };
 
   return (
@@ -27,6 +72,6 @@ export const DarkModeProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </DarkModeContext.Provider>
   );
-};
+}
 
-export const useDarkModeContext = () => useContext(DarkModeContext);
+export const useDarkMode = () => useContext(DarkModeContext);

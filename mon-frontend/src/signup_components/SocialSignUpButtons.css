@@ -1,0 +1,158 @@
+.social-signup-buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  width: 100%;
+  max-width: 24rem;
+  background-color: var(--form-bg);
+  padding: 2rem;
+  border-radius: 1.25rem;
+  border: 1px solid var(--form-border);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
+  animation: slide-up 0.6s ease-out forwards;
+  animation-delay: 0.2s;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.social-signup-buttons-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.social-signup-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 0.5rem 0 1.5rem;
+  color: var(--color-text);
+  opacity: 0.6;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.social-signup-divider::before,
+.social-signup-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--form-border);
+  margin: 0 0.75rem;
+}
+
+.social-signup-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--form-border);
+  border-radius: 0.625rem;
+  padding: 0.875rem 1rem;
+  background-color: var(--input-bg);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.social-signup-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+}
+
+.social-signup-button:active {
+  transform: translateY(-1px);
+}
+
+.social-signup-button-text {
+  color: var(--color-text);
+  font-weight: 500;
+  font-size: 0.925rem;
+  letter-spacing: 0.01em;
+}
+
+.social-signup-icon {
+  position: absolute;
+  left: 1.25rem;
+  width: 22px;
+  height: 22px;
+  transition: transform 0.3s ease;
+}
+
+.social-signup-button:hover .social-signup-icon {
+  transform: scale(1.1);
+}
+
+/* Provider-specific styling - updated to ensure consistency */
+.signup-google {
+  border-color: rgba(66, 133, 244, 0.4);
+}
+
+.signup-google:hover {
+  background-color: rgba(66, 133, 244, 0.05);
+}
+
+.signup-apple {
+  border-color: rgba(0, 0, 0, 0.4);
+}
+
+.signup-apple:hover {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.05
+  ); /* Updated to match the hover effect pattern */
+}
+
+.signup-microsoft {
+  border-color: rgba(0, 120, 215, 0.4);
+}
+
+.signup-microsoft:hover {
+  background-color: rgba(0, 120, 215, 0.05);
+}
+
+/* Add staggered animation for buttons */
+.social-signup-button:nth-child(2) {
+  animation: fade-in-up 0.5s ease forwards;
+  animation-delay: 0.3s;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.social-signup-button:nth-child(3) {
+  animation: fade-in-up 0.5s ease forwards;
+  animation-delay: 0.4s;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.social-signup-button:nth-child(4) {
+  animation: fade-in-up 0.5s ease forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

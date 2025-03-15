@@ -1,65 +1,41 @@
-/* Smooth fade-in from below */
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: var(--font-primary, "Poppins", sans-serif);
-  background-color: var(--landing-bg, var(--color-bg));
-  color: var(--landing-text, var(--color-text));
-  transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
-}
-
 .landing-page-container {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  background-color: var(--landing-bg, var(--color-bg));
+  overflow-x: hidden;
 }
 
-.landing-page-header {
-  flex: none;
-  animation: fadeInUp 0.8s ease forwards;
-}
-
-.landing-page-main {
-  flex-grow: 1;
-  display: flex;
-  overflow: hidden;
-}
-
-.landing-page-video-section {
-  width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadeInUp 1s ease forwards;
-}
-
-.landing-page-form-section {
-  width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadeInUp 1.2s ease forwards;
-}
-
-.landing-page-form-container {
+main {
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.landing-page-footer {
-  flex: none;
-  animation: fadeInUp 1s ease forwards;
+/* Page load animations */
+.page-loaded .fade-in {
+  animation-play-state: running;
+}
+
+/* Prevent FOUC (Flash of Unstyled Content) */
+.page-loaded * {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* Ensure top margin for main content to prevent overlap with fixed header */
+main {
+  margin-top: 1rem;
+}
+
+/* Responsive container sizing */
+@media (max-width: 1200px) {
+  .landing-page-container {
+    padding: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    margin-top: 0.5rem;
+  }
 }

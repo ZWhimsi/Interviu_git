@@ -1,30 +1,30 @@
-import Header from "../components/Header";
-import VideoSection from "../components/VideoSection";
-import SignInForm from "../components/SignInForm";
-import SocialSignUpButtons from "../components/SocialSignUpButtons";
-import Footer from "../components/Footer";
+import { useEffect } from "react";
+import Header from "../signup_components/Header";
+import Footer from "../signup_components/Footer";
+import HeroSection from "../signup_components/HeroSection";
 import "./LandingPage.css";
 
 export default function LandingPage() {
+  // Apply fade-in animations when the page loads
+  useEffect(() => {
+    document.body.classList.add("page-loaded");
+    return () => {
+      document.body.classList.remove("page-loaded");
+    };
+  }, []);
+
   return (
     <div className="landing-page-container">
-      <header className="landing-page-header">
-        <Header />
-      </header>
-      <main className="landing-page-main">
-        <section className="landing-page-video-section">
-          <VideoSection />
-        </section>
-        <aside className="landing-page-form-section">
-          <div className="landing-page-form-container">
-            <SignInForm />
-            <SocialSignUpButtons />
-          </div>
-        </aside>
+      <Header />
+
+      <main>
+        <HeroSection />
+
+        {/* Additional sections would go here */}
+        {/* Features section, testimonials, pricing, etc. */}
       </main>
-      <footer className="landing-page-footer">
-        <Footer />
-      </footer>
+
+      <Footer />
     </div>
   );
 }

@@ -1,0 +1,210 @@
+.header-container {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  padding: 1.5rem 1rem; /* Increased vertical padding from 1rem to 1.5rem */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--header-border);
+  background-color: var(--header-bg);
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    transform 0.3s ease;
+  z-index: 50;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Add scroll behavior to hide header when scrolling down */
+.header-container.scroll-down {
+  transform: translateY(-100%);
+}
+
+.header-container.scroll-up {
+  transform: translateY(0);
+  box-shadow: var(--header-shadow);
+}
+
+.header-toggle {
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.header-toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--toggle-bg);
+  color: var(--toggle-text);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.header-toggle-button:hover {
+  transform: scale(1.05);
+  background-color: var(--toggle-hover);
+}
+
+.header-toggle-button svg {
+  width: 22px;
+  height: 22px;
+  transition: all 0.5s ease;
+}
+
+.header-toggle-button:hover svg {
+  transform: rotate(30deg);
+}
+
+/* Animation for toggle button switch */
+.header-toggle-button .icon-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-toggle-button .icon-switch {
+  position: absolute;
+  transition: transform 0.5s ease, opacity 0.3s ease;
+}
+
+.header-toggle-button .icon-switch.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.header-toggle-button .icon-switch.hidden {
+  transform: translateY(30px);
+  opacity: 0;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  position: relative;
+}
+
+.header-logo {
+  width: 2rem; /* Increased from 1.5rem to 2rem */
+  height: 2rem; /* Increased from 1.5rem to 2rem */
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.header-logo svg {
+  width: 100%;
+  height: auto;
+  transform: translateY(3px);
+}
+
+.header-brand:hover .header-logo {
+  transform: scale(1.05) rotate(5deg);
+}
+
+.header-brand-name {
+  font-size: 1.75rem; /* Increased from 1.5rem to 1.75rem */
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  background: linear-gradient(
+    to right,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add subtle animation to brand name on hover */
+.header-brand-name::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s ease;
+}
+
+.header-brand:hover .header-brand-name::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Sign In Button Styles */
+.header-signin-button {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(
+    to right,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
+  color: white;
+  border: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(86, 57, 254, 0.2);
+}
+
+.header-signin-button:hover {
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 6px 15px rgba(86, 57, 254, 0.25);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .header-brand-name {
+    font-size: 1.5rem;
+  }
+
+  .header-logo {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .header-toggle-button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .header-toggle {
+    left: 1rem;
+  }
+
+  .header-signin-button {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.8rem;
+    right: 1rem;
+  }
+}

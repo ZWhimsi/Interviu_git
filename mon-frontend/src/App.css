@@ -1,4 +1,56 @@
-/* Import Poppins font */
+/* New subtle animation for loading state */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(var(--color-primary-rgb), 0.1),
+    rgba(var(--color-primary-rgb), 0.2),
+    rgba(var(--color-primary-rgb), 0.1)
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Additional utility classes */
+.text-gradient {
+  background: linear-gradient(
+    to right,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.section-padding {
+  padding: 4rem 0;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
+} 
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 /* Prevent horizontal scrolling */
@@ -24,6 +76,7 @@ body {
   --gradient-start: var(--color-primary);
   --gradient-end: var(--color-accent);
   --font-primary: "Poppins", sans-serif;
+  --component-bg: #ffffff;
 
   /* Component-specific light theme */
   --header-bg: rgba(255, 255, 255, 0.98);
@@ -72,6 +125,7 @@ body {
   --input-border: var(--color-secondary);
   --input-text: #f3f4f8;
   --input-placeholder: #9ca3af;
+  --component-bg: rgba(7, 11, 84, 0.8);
 
   /* Enhanced dark mode overlay and card styles */
   --overlay-dark: rgba(1, 9, 30, 0.7);
@@ -212,57 +266,4 @@ a:focus:not(:focus-visible) {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(var(--color-primary-rgb), 0.3);
-}
-
-/* New subtle animation for loading state */
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.loading-shimmer {
-  background: linear-gradient(
-    90deg,
-    rgba(var(--color-primary-rgb), 0.1),
-    rgba(var(--color-primary-rgb), 0.2),
-    rgba(var(--color-primary-rgb), 0.1)
-  );
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-}
-
-/* Additional utility classes */
-.text-gradient {
-  background: linear-gradient(
-    to right,
-    var(--gradient-start),
-    var(--gradient-end)
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.section-padding {
-  padding: 4rem 0;
-}
-
-/* Skip link for accessibility */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: var(--color-primary);
-  color: white;
-  padding: 8px;
-  z-index: 100;
-  transition: top 0.3s;
-}
-
-.skip-link:focus {
-  top: 0;
 }

@@ -107,7 +107,7 @@ export default function Header() {
 
       <a href="/" className="header-brand">
         <div className="header-logo">
-          <svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 84 180" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient
                 id="lg1"

@@ -24,17 +24,11 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: transform 0.3s ease;
-}
-
-.footer-brand:hover {
-  transform: translateY(-3px);
 }
 
 .footer-logo {
   width: 1.2rem; /* Further reduced from 1.5rem */
   height: 1.2rem; /* Further reduced from 1.5rem */
-  transition: transform 0.3s ease;
   display: flex;
   align-items: center;
 }
@@ -43,10 +37,6 @@
   width: 100%;
   height: auto;
   transform: translateY(3px);
-}
-
-.footer-brand:hover .footer-logo {
-  transform: rotate(10deg);
 }
 
 .footer-brand-name {

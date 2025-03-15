@@ -226,6 +226,10 @@
 }
 
 /* Social buttons section */
+.sign-up-social-buttons {
+  width: 100%;
+}
+
 .sign-up-social-buttons .social-auth-buttons-container {
   box-shadow: none;
   animation: social-fade-in 0.6s ease-out forwards;

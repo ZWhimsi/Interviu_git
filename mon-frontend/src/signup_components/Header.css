@@ -5,7 +5,7 @@
   padding: 1.5rem 1rem; /* Increased vertical padding from 1rem to 1.5rem */
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Align to the left */
+  justify-content: center; /* Changed from flex-start to center for centering */
   border-bottom: 1px solid var(--header-border);
   background-color: var(--header-bg);
   transition: background-color 0.3s ease, border-color 0.3s ease,
@@ -92,18 +92,21 @@
 
 .header-brand {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: column; /* Changed from row to column */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
   text-decoration: none;
   position: relative;
 }
 
 .header-logo {
-  width: 2rem; /* Increased from 1.5rem to 2rem */
-  height: 2rem; /* Increased from 1.5rem to 2rem */
+  width: 2.5rem; /* Increased from 2rem to 2.5rem for better visibility */
+  height: 2.5rem; /* Increased from 2rem to 2.5rem for better visibility */
   transition: transform 0.3s ease;
   display: flex;
   align-items: center;
+  justify-content: center; /* Center the SVG */
+  margin-bottom: 0.5rem; /* Added spacing between logo and text */
 }
 
 .header-logo svg {
@@ -116,7 +119,7 @@
 }
 
 .header-brand-name {
-  font-size: 1.75rem; /* Increased from 1.5rem to 1.75rem */
+  font-size: 1.5rem; /* Decreased from 1.75rem to 1.5rem for better balance */
   font-weight: 600;
   letter-spacing: -0.5px;
   background: linear-gradient(
@@ -155,19 +158,20 @@
 }
 
 .header-auth-button:hover {
-  transform: translateY(-50%);
+  transform: translateY(-50%) scale(1.05);
   box-shadow: 0 6px 15px rgba(86, 57, 254, 0.25);
 }
 
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .header-brand-name {
-    font-size: 1.5rem;
+    font-size: 1.25rem; /* Decreased from 1.5rem for mobile */
   }
 
   .header-logo {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 0.25rem; /* Reduced spacing on mobile */
   }
 
   .header-toggle-button {

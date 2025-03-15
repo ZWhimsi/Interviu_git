@@ -94,7 +94,7 @@
   transform: scale(1.1);
 }
 
-/* Provider-specific styling */
+/* Provider-specific styling - now using gradients for Google and Microsoft */
 .auth-google {
   border-color: rgba(86, 57, 254, 0.4);
 }

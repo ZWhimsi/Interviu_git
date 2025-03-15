@@ -2,45 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-#root {
-  width: 100%;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Brand & Theme Variables */
+:root {
+  --color-bg: #ffffff;
+  --color-text: #2d2e48;
+  --color-primary: #4b66ff;
+  --color-primary-rgb: 75, 102, 255;
+  --gradient-start: #5639fe;
+  --gradient-end: #66e8fd;
+  --font-primary: "Poppins", sans-serif;
+
+  /* Light-mode toggles */
+  --header-bg: #ffffff;
+  --header-border: #d1d5db;
+  --toggle-bg: #e5e7eb;
+  --toggle-text: #374151;
+  --toggle-hover: #d1d5db;
+  --footer-border: #e5e7eb;
+  --footer-text: #374151;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
+/* Dark-mode overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #2d2e48;
+    --color-text: #e1e5ff;
+    --color-primary: #6f7fff;
+    --color-primary-rgb: 111, 127, 255;
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+    --header-bg: #111827;
+    --header-border: #374151;
+    --toggle-bg: #1f2937;
+    --toggle-text: #e5e7eb;
+    --toggle-hover: #374151;
+    --footer-border: #374151;
+    --footer-text: #e5e7eb;
   }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-primary);
 }

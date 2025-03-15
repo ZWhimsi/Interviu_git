@@ -15,7 +15,6 @@ export const DarkModeProvider = ({ children }: { children: ReactNode }) => {
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
-    // Add or remove the "dark" class from <html> or <body>
     if (!darkMode) {
       document.documentElement.classList.add("dark");
     } else {

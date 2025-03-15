@@ -1,6 +1,10 @@
-// src/App.tsx
+import { DarkModeProvider } from "./context/DarkModeContext";
 import LandingPage from "./pages/LandingPage";
 
 export default function App() {
-  return <LandingPage />;
+  return (
+    <DarkModeProvider>
+      <LandingPage />
+    </DarkModeProvider>
+  );
 }

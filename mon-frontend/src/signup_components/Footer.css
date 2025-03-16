@@ -11,22 +11,25 @@
   overflow-x: hidden;
 }
 
+/* Updated footer content layout to be centered and stacked */
 .footer-content {
   display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 1200px;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 0 2rem;
+  text-align: center;
 }
 
 .footer-brand {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
-/* Reduced logo size from 1.2rem to 1rem */
 .footer-logo {
   width: 1rem;
   height: 1rem;
@@ -54,12 +57,16 @@
   letter-spacing: -0.3px;
 }
 
+/* Centered links with proper spacing */
 .footer-links {
   display: flex;
   gap: 2rem;
   font-size: 0.925rem;
   font-weight: 500;
   color: var(--footer-text);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1.25rem; /* Added space between links and copyright */
 }
 
 .footer-link {
@@ -94,10 +101,12 @@
   width: 100%;
 }
 
+/* Copyright now appears below the links */
 .footer-copyright {
   font-size: 0.8125rem;
   color: var(--footer-text);
-  opacity: 0.8;
+  opacity: 0.7;
+  padding-top: 0.25rem; /* Small padding above copyright */
 }
 
 /* Modify footer fade-in animation to be more subtle */
@@ -116,27 +125,19 @@
   }
 }
 
+/* Responsive adjustments - simplified since layout is already centered */
 @media (max-width: 900px) {
   .footer-links {
     gap: 1.5rem;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .footer-content {
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 0 1.5rem;
-    text-align: center;
+    padding: 0 1rem;
   }
 
   .footer-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.25rem;
-  }
-
-  .footer-copyright {
-    margin-top: 0.5rem;
+    gap: 1rem;
   }
 }

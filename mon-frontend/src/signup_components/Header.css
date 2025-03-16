@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   width: 100%;
-  padding: 1.5rem 1rem;
+  padding: 1.75rem 1rem; /* Increased top padding from 1.5rem to 1.75rem */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -97,7 +97,6 @@
   position: relative;
 }
 
-/* Reduced logo size from 3rem to 2.2rem */
 .header-logo {
   width: 2.2rem;
   height: 2.2rem;
@@ -116,10 +115,10 @@
   transform: none;
 }
 
-/* Auth Button Styles */
+/* Auth Button Styles - Increased right position from 1.5rem to 2.5rem */
 .header-auth-button {
   position: absolute;
-  right: 1.5rem;
+  right: 2.5rem; /* Increased from 1.5rem to 2.5rem to move away from scrollbar */
   top: 50%;
   transform: translateY(-50%);
   background: linear-gradient(
@@ -145,7 +144,7 @@
   box-shadow: 0 6px 15px rgba(86, 57, 254, 0.25);
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments - Updated for new spacing */
 @media (max-width: 640px) {
   .header-logo {
     width: 2rem;
@@ -164,6 +163,6 @@
   .header-auth-button {
     padding: 0.5rem 0.9rem;
     font-size: 0.8rem;
-    right: 1rem;
+    right: 1.5rem; /* Adjusted for mobile but still keeping distance from edge */
   }
 }

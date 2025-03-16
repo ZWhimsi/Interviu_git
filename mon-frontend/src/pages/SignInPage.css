@@ -2,6 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: var(--page-bg);
 }
 
 .signin-page-content {
@@ -10,11 +11,7 @@
   justify-content: center;
   align-items: center;
   padding: 3rem 1.5rem;
-  background: linear-gradient(
-    135deg,
-    rgba(var(--color-primary-rgb), 0.03) 0%,
-    rgba(102, 232, 253, 0.07) 100%
-  );
+  background-color: var(--page-bg);
 }
 
 .signin-container {
@@ -23,7 +20,7 @@
   padding: 3rem;
   border-radius: 1.25rem;
   background-color: var(--form-bg);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
   border: 1px solid var(--form-border);
   animation: fadeUp 0.6s ease-out;
 }
@@ -204,7 +201,7 @@
   }
 }
 
-/* Social buttons section */
+/* Social buttons section - updated for dark background */
 .signin-social-buttons {
   margin-top: 2rem;
 }

@@ -143,7 +143,6 @@ export default function Header() {
             </g>
           </svg>
         </div>
-        <span className="header-brand-name">InterviU</span>
       </a>
 
       {/* Conditional Sign In/Sign Up Button */}

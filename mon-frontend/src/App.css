@@ -1,6 +1,208 @@
-/* New subtle animation for loading state */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
+/* Core Variables */
+:root {
+  /* Core colors from Style Sheet */
+  --color-dark: #01091e;
+  --color-deeper: #070b54;
+  --color-primary: #5639fe;
+  --color-secondary: #5e91fe;
+  --color-accent: #66e8fd;
+  --color-primary-rgb: 86, 57, 254;
+
+  /* Unified background colors - LIGHT MODE */
+  --page-bg: #ffffff;
+  --content-bg: #ffffff;
+
+  /* Light theme */
+  --color-bg: var(--page-bg);
+  --color-text: var(--color-dark);
+  --gradient-start: var(--color-primary);
+  --gradient-end: var(--color-accent);
+  --font-primary: "Poppins", sans-serif;
+
+  /* Component-specific theme - LIGHT MODE */
+  --header-bg: var(--page-bg);
+  --header-border: rgba(209, 213, 219, 0.3);
+  --header-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --toggle-bg: #f3f4f6;
+  --toggle-text: var(--color-dark);
+  --toggle-hover: #e5e7eb;
+  --footer-border: rgba(229, 231, 235, 0.3);
+  --footer-text: var(--color-dark);
+  --form-bg: #ffffff;
+  --form-border: rgba(209, 213, 219, 0.3);
+  --input-bg: #f9fafb;
+  --input-text: var(--color-dark);
+  --input-placeholder: #9ca3af;
+  --component-bg: #ffffff;
+  --subtle-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark-mode overrides - real dark mode now */
+.dark {
+  /* Dark mode backgrounds */
+  --page-bg: #01091e;
+  --content-bg: #01091e;
+
+  --color-bg: var(--page-bg);
+  --color-text: #ffffff;
+  --header-bg: var(--page-bg);
+  --header-border: rgba(86, 57, 254, 0.2);
+  --header-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  --toggle-bg: rgba(31, 41, 55, 0.7);
+  --toggle-text: #ffffff;
+  --toggle-hover: rgba(55, 65, 81, 0.7);
+  --footer-border: rgba(86, 57, 254, 0.2);
+  --footer-text: #ffffff;
+  --form-bg: rgba(7, 11, 84, 0.4);
+  --form-border: rgba(86, 57, 254, 0.3);
+  --input-bg: rgba(31, 41, 55, 0.5);
+  --input-text: #ffffff;
+  --component-bg: rgba(7, 11, 84, 0.4);
+  --subtle-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Base Styles */
+body {
+  margin: 0;
+  background-color: var(--page-bg);
+  color: var(--color-text);
+  font-family: var(--font-primary);
+  transition: background-color 0.4s ease, color 0.4s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+button,
+input {
+  font-family: var(--font-primary);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Unified page background colors within each mode */
+.landing-page-container,
+.signin-page,
+main,
+.signin-page-content,
+.hero-section {
+  background-color: var(--page-bg);
+}
+
+/* Remove gradients from page backgrounds */
+.hero-section::before,
+.signin-page-content {
+  background: none !important;
+}
+
+/* Prevent horizontal scrolling */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Footer styling overrides */
+.footer-container {
+  margin-top: 0 !important;
+  border-top: 1px solid var(--footer-border);
+  background-color: var(--page-bg);
+}
+
+.dark .footer-container {
+  background-color: var(--page-bg);
+}
+
+/* Dark mode specific overrides for footer */
+.dark .footer-link {
+  color: #ffffff !important;
+}
+
+.dark .footer-copyright {
+  color: #ffffff !important;
+  opacity: 0.7;
+}
+
+/* Light mode specific overrides for footer */
+.footer-link {
+  color: var(--color-text) !important;
+}
+
+.footer-copyright {
+  color: var(--color-text) !important;
+  opacity: 0.7;
+}
+
+/* Fix form backgrounds */
+.sign-up-form-container,
+.signin-container {
+  background-color: var(--form-bg);
+}
+
+/* Fix video section background */
+.video-section-container {
+  background-color: var(--form-bg);
+}
+
+/* Fix header container background */
+.header-container {
+  background-color: var(--page-bg);
+}
+
+/* Essential animation classes */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--subtle-shadow);
+}
+
+/* Focus accessibility */
+button:focus,
+input:focus,
+a:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Theme transition */
+.theme-transition {
+  transition: background-color 0.4s ease, color 0.4s ease,
+    border-color 0.4s ease;
+}
+
+/* Loading animation */
 @keyframes shimmer {
   0% {
     background-position: -200% 0;
@@ -21,7 +223,7 @@
   animation: shimmer 2s infinite;
 }
 
-/* Additional utility classes */
+/* Common text styling */
 .text-gradient {
   background: linear-gradient(
     to right,
@@ -33,266 +235,7 @@
   color: transparent;
 }
 
-.section-padding {
-  padding: 4rem 0;
-}
-
-/* Skip link for accessibility */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: var(--color-primary);
-  color: white;
-  padding: 8px;
-  z-index: 100;
-  transition: top 0.3s;
-}
-
-.skip-link:focus {
-  top: 0;
-}
-
-/* Prevent horizontal scrolling */
-html,
-body {
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-/* Brand & Theme Variables - Updated with Style Sheet colors */
-:root {
-  /* Core colors from Style Sheet */
-  --color-dark: #01091e;
-  --color-deeper: #070b54;
-  --color-primary: #5639fe;
-  --color-secondary: #5e91fe;
-  --color-accent: #66e8fd;
-  --color-primary-rgb: 86, 57, 254;
-
-  /* Light theme */
-  --color-bg: #ffffff;
-  --color-text: var(--color-dark);
-  --gradient-start: var(--color-primary);
-  --gradient-end: var(--color-accent);
-  --font-primary: "Poppins", sans-serif;
-  --component-bg: #ffffff;
-
-  /* Component-specific light theme */
-  --header-bg: rgba(255, 255, 255, 0.98);
-  --header-border: rgba(209, 213, 219, 0.3);
-  --header-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  --toggle-bg: #f3f4f6;
-  --toggle-text: var(--color-dark);
-  --toggle-hover: #e5e7eb;
-  --footer-border: rgba(229, 231, 235, 0.3);
-  --footer-text: var(--color-dark);
-  --form-bg: #ffffff;
-  --form-border: rgba(209, 213, 219, 0.3);
-  --form-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  --input-bg: #f9fafb;
-  --input-border: var(--color-secondary);
-  --input-text: var(--color-dark);
-  --input-placeholder: #9ca3af;
-  --button-text: #ffffff;
-
-  /* Continued from previous App.css */
-  /* Enhancing with overlay and card styles */
-  --overlay-light: rgba(255, 255, 255, 0.7);
-  --card-bg-light: rgba(255, 255, 255, 0.8);
-  --glass-effect: saturate(180%) blur(10px);
-  --subtle-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-
-  /* New variables for unified backgrounds */
-  --unified-bg-gradient: linear-gradient(
-    135deg,
-    rgba(86, 57, 254, 0.01) 0%,
-    rgba(94, 145, 254, 0.02) 50%,
-    rgba(102, 232, 253, 0.03) 100%
-  );
-}
-
-/* Dark-mode overrides */
-.dark {
-  --color-bg: var(--color-dark);
-  --color-text: #f3f4f8;
-
-  /* Component-specific dark theme */
-  --header-bg: rgba(1, 9, 30, 0.98);
-  --header-border: rgba(55, 65, 81, 0.3);
-  --header-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-  --toggle-bg: rgba(31, 41, 55, 0.7);
-  --toggle-text: #f3f4f8;
-  --toggle-hover: rgba(55, 65, 81, 0.7);
-  --footer-border: rgba(55, 65, 81, 0.3);
-  --footer-text: #f3f4f8;
-  --form-bg: rgba(7, 11, 84, 0.8);
-  --form-border: rgba(55, 65, 81, 0.3);
-  --form-shadow: 0 4px 10px -1px rgba(0, 0, 0, 0.2);
-  --input-bg: rgba(31, 41, 55, 0.5);
-  --input-border: var(--color-secondary);
-  --input-text: #f3f4f8;
-  --input-placeholder: #9ca3af;
-  --component-bg: rgba(7, 11, 84, 0.8);
-
-  /* Enhanced dark mode overlay and card styles */
-  --overlay-dark: rgba(1, 9, 30, 0.7);
-  --card-bg-dark: rgba(7, 11, 84, 0.6);
-  --subtle-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-
-  /* Unified background for dark mode */
-  --unified-bg-gradient: linear-gradient(
-    135deg,
-    rgba(7, 11, 84, 0.3) 0%,
-    rgba(1, 9, 30, 0.4) 100%
-  );
-}
-
-/* Container classes to prevent overflow */
-.header-container,
-.footer-container,
-.landing-page-container,
-main {
-  overflow-x: hidden;
-}
-
-body {
-  margin: 0;
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-primary);
-  transition: background-color 0.4s ease, color 0.4s ease;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Global styles */
-button,
-input {
-  font-family: var(--font-primary);
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-/* Modern gradient button */
-.gradient-button {
-  background: linear-gradient(
-    to right,
-    var(--gradient-start),
-    var(--gradient-end)
-  );
-  color: white;
-  border: none;
-  font-weight: 600;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 10px rgba(86, 57, 254, 0.2);
-}
-
-.gradient-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(86, 57, 254, 0.25);
-}
-
-.gradient-button:active {
-  transform: translateY(-1px);
-}
-
-/* Animate element transitions */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.6s ease forwards;
-}
-
-.fade-in-delay-1 {
-  animation-delay: 0.2s;
-}
-
-.fade-in-delay-2 {
-  animation-delay: 0.4s;
-}
-
-.fade-in-delay-3 {
-  animation-delay: 0.6s;
-}
-
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Hover animation for interactive elements */
-.hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--subtle-shadow);
-}
-
-/* New modern glass effect */
-.glass-effect {
-  background: rgba(var(--color-bg), 0.7);
-  backdrop-filter: var(--glass-effect);
-  -webkit-backdrop-filter: var(--glass-effect);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* New focus styles for better accessibility */
-button:focus,
-input:focus,
-a:focus {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
-
-button:focus:not(:focus-visible),
-input:focus:not(:focus-visible),
-a:focus:not(:focus-visible) {
-  outline: none;
-}
-
-/* Improved scrollbar for better UX */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(var(--color-primary-rgb), 0.05);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(var(--color-primary-rgb), 0.2);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(var(--color-primary-rgb), 0.3);
-}
-
-/* Theme transition */
-.theme-transition {
-  transition: background-color 0.4s ease, color 0.4s ease,
-    border-color 0.4s ease;
-}
-
-/* Unified background across components */
-.header-container,
-.hero-section,
-.footer-container {
-  background-color: var(--header-bg);
-  border-color: var(--header-border);
+/* Additional overrides for consistency */
+.hero-section {
+  border-bottom: 1px solid var(--footer-border);
 }

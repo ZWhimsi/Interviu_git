@@ -225,7 +225,7 @@
   text-decoration: underline;
 }
 
-/* Social buttons section */
+/* Social buttons section - updated for dark background */
 .sign-up-social-buttons {
   width: 100%;
 }
@@ -234,6 +234,7 @@
   box-shadow: none;
   animation: social-fade-in 0.6s ease-out forwards;
   animation-delay: 0.3s;
+  background-color: transparent;
 }
 
 @keyframes social-fade-in {

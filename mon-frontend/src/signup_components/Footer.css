@@ -5,10 +5,10 @@
   width: 100%;
   padding: 2rem 0;
   border-top: 1px solid var(--footer-border);
-  background-color: var(--header-bg);
+  background-color: var(--page-bg);
   transition: background-color 0.3s ease, border-color 0.3s ease;
-  margin-top: 4rem;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  margin-top: 0;
+  overflow-x: hidden;
 }
 
 .footer-content {
@@ -26,9 +26,10 @@
   gap: 0.5rem;
 }
 
+/* Reduced logo size from 1.2rem to 1rem */
 .footer-logo {
-  width: 1.2rem; /* Further reduced from 1.5rem */
-  height: 1.2rem; /* Further reduced from 1.5rem */
+  width: 1rem;
+  height: 1rem;
   display: flex;
   align-items: center;
 }
@@ -99,15 +100,15 @@
   opacity: 0.8;
 }
 
-/* Add footer fade-in animation */
+/* Modify footer fade-in animation to be more subtle */
 .footer-fade-in {
-  animation: footer-fade 1s ease forwards;
+  animation: footer-fade 0.8s ease forwards;
 }
 
 @keyframes footer-fade {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;

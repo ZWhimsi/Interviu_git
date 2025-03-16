@@ -3,29 +3,15 @@
   padding: 4rem 2rem;
   display: flex;
   justify-content: center;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden;
   position: relative;
-  /* Updated background to match header and footer styling */
-  background-color: var(--header-bg);
-  border-bottom: 1px solid var(--header-border);
+  background-color: var(--page-bg);
+  border-bottom: 1px solid var(--footer-border);
 }
 
-/* Adding subtle gradient overlay */
+/* Remove gradient overlay for consistent background */
 .hero-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(7, 11, 84, 0.03) 0%,
-    rgba(86, 57, 254, 0.04) 50%,
-    rgba(102, 232, 253, 0.05) 100%
-  );
-  pointer-events: none;
-  z-index: 0;
+  display: none;
 }
 
 .hero-section-container {
@@ -78,7 +64,7 @@
 
 .hero-section-video-column {
   flex: 1;
-  min-width: 0; /* Prevent flex child from overflowing */
+  min-width: 0;
 }
 
 .hero-section-form-column {
@@ -86,7 +72,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 0; /* Prevent flex child from overflowing */
+  min-width: 0;
 }
 
 /* Animation for the fade-in effect */
@@ -118,7 +104,7 @@
 /* Make video section more compact for side-by-side layout */
 .hero-section .video-section-container {
   padding: 2rem;
-  background-color: var(--component-bg);
+  background-color: var(--form-bg);
 }
 
 .hero-section .video-section-title {
@@ -129,20 +115,6 @@
 .hero-section .video-section-description {
   font-size: 1rem;
   margin-bottom: 1.5rem;
-}
-
-/* Dark mode specific adjustments */
-.dark .hero-section {
-  background-color: var(--header-bg);
-  border-bottom: 1px solid var(--header-border);
-}
-
-.dark .hero-section::before {
-  background: linear-gradient(
-    135deg,
-    rgba(1, 9, 30, 0.5) 0%,
-    rgba(7, 11, 84, 0.3) 100%
-  );
 }
 
 /* Responsive adjustments */

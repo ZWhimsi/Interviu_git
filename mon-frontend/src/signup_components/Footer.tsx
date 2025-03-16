@@ -66,7 +66,6 @@ export default function Footer() {
               </g>
             </svg>
           </div>
-          <span className="footer-brand-name">InterviU</span>
         </div>
 
         <div className="footer-links">

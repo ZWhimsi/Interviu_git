@@ -13,7 +13,7 @@
   width: 100%;
   background-color: var(--form-bg);
   border: 1px solid var(--form-border);
-  transition: all 0.4s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   animation: form-entrance 0.6s ease-out;
 }
 
@@ -29,8 +29,8 @@
 }
 
 .sign-up-form-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .sign-up-form-title {
@@ -68,14 +68,21 @@
   background-color: var(--input-bg);
   color: var(--input-text);
   outline: none;
-  transition: all 0.3s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.sign-up-form-input:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
 }
 
 .sign-up-form-input:focus {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(86, 57, 254, 0.2);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .sign-up-form-input::placeholder {
@@ -96,20 +103,21 @@
   padding: 0.875rem 1rem;
   border-radius: 0.625rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(86, 57, 254, 0.25);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(86, 57, 254, 0.2);
   letter-spacing: 0.02em;
   position: relative;
   overflow: hidden;
 }
 
 .sign-up-form-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 15px rgba(86, 57, 254, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(86, 57, 254, 0.25);
 }
 
 .sign-up-form-button:active {
-  transform: translateY(-1px);
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(86, 57, 254, 0.2);
 }
 
 /* Add button shine effect */
@@ -218,11 +226,23 @@
   color: var(--color-primary);
   font-weight: 500;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sign-up-form-login-link a:hover {
   text-decoration: underline;
+}
+
+/* API Error Styles */
+.sign-up-api-error {
+  background-color: #fee;
+  border: 1px solid #fcc;
+  color: #c33;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  text-align: center;
 }
 
 /* Social buttons section - updated for dark background */

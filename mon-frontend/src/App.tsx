@@ -1,8 +1,13 @@
 // src/App.tsx
 import { useState, useEffect } from "react";
 import { DarkModeProvider } from "./context/DarkModeContext";
+import { AuthProvider } from "./context/AuthContext";
 import LandingPage from "./pages/LandingPage";
 import SignInPage from "./pages/SignInpage";
+import SignUpPage from "./pages/SignUpPage";
+import ProfilePage from "./pages/ProfilePage";
+import UserProfilePage from "./pages/UserProfilePage";
+import DashboardPage from "./pages/DashboardPage";
 import "./App.css";
 
 export default function App() {
@@ -22,6 +27,9 @@ export default function App() {
       switch (currentPath) {
         case "/signin":
           pageTitle = "Sign In | InterviU";
+          break;
+        case "/signup":
+          pageTitle = "Sign Up | InterviU";
           break;
         default:
           pageTitle = "InterviU - Ace Your Next Interview";
@@ -75,10 +83,22 @@ export default function App() {
     switch (currentPath) {
       case "/signin":
         return <SignInPage />;
+      case "/signup":
+        return <SignUpPage />;
+      case "/profile":
+        return <ProfilePage />;
+      case "/user-profile":
+        return <UserProfilePage />;
+      case "/dashboard":
+        return <DashboardPage />;
       default:
         return <LandingPage />;
     }
   };
 
-  return <DarkModeProvider>{renderPage()}</DarkModeProvider>;
+  return (
+    <DarkModeProvider>
+      <AuthProvider>{renderPage()}</AuthProvider>
+    </DarkModeProvider>
+  );
 }

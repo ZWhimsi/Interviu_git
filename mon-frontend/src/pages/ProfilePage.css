@@ -1,0 +1,425 @@
+.profile-page {
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start) 0%,
+    var(--gradient-end) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.profile-container {
+  background: var(--bg-primary);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px var(--shadow);
+  padding: 40px;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.logo {
+  height: 120px !important;
+  width: auto !important;
+  max-width: 350px !important;
+  object-fit: contain !important;
+}
+
+.profile-form {
+  width: 100%;
+  max-width: 500px;
+}
+
+.profile-form h1 {
+  text-align: center;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  font-size: 28px;
+}
+
+.profile-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 16px;
+}
+
+.required {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.form-group input[type="text"] {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--input-border);
+  border-radius: 10px;
+  font-size: 16px;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input[type="text"]:focus {
+  outline: none;
+  border-color: var(--button-primary);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* File Upload Styles */
+.file-upload-area {
+  position: relative;
+  border: 2px dashed #e1e5e9;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.file-upload-area:hover {
+  border-color: #667eea;
+  background-color: #f8f9ff;
+}
+
+.file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-upload-content {
+  pointer-events: none;
+}
+
+.file-upload-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.file-upload-content p {
+  margin: 5px 0;
+  color: #666;
+  font-size: 16px;
+}
+
+.file-format {
+  color: #999;
+  font-size: 14px;
+}
+
+.selected-file {
+  color: #667eea !important;
+  font-weight: 600;
+}
+
+.upload-button {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.upload-button:hover {
+  background: #5a6fd8;
+  transform: translateY(-2px);
+}
+
+/* Role Selection Styles */
+.role-selection {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.role-option {
+  flex: 1;
+  padding: 15px 20px;
+  border: 2px solid #e1e5e9;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.role-option:hover {
+  border-color: #667eea;
+  background-color: #f8f9ff;
+}
+
+.role-option.selected {
+  border-color: #667eea;
+  background-color: #667eea;
+  color: white;
+}
+
+.role-option input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #667eea;
+}
+
+.role-option span {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.role-note {
+  color: #666;
+  font-size: 14px;
+  font-style: italic;
+  margin-top: 10px;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.save-button {
+  flex: 1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.save-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.save-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.logout-button {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+/* Loading State */
+.profile-loading {
+  text-align: center;
+  color: white;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error/Success Messages */
+.profile-error {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  color: #6c757d;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.profile-success {
+  background: #f8f9fa;
+  border: 1px solid #667eea;
+  color: #667eea;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .profile-container {
+    max-width: 90%;
+    margin: 20px auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-page {
+    padding: 10px;
+  }
+
+  .profile-container {
+    padding: 20px;
+    margin: 10px;
+    border-radius: 15px;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+  }
+
+  .logo {
+    height: 100px;
+  }
+
+  .mandatory-note {
+    font-size: 12px;
+  }
+
+  .profile-form h1 {
+    font-size: 24px;
+  }
+
+  .profile-subtitle {
+    font-size: 14px;
+  }
+
+  .role-selection {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .file-upload-area {
+    padding: 20px;
+  }
+
+  .file-upload-icon {
+    font-size: 36px;
+  }
+
+  .file-upload-content p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    padding: 15px;
+    margin: 5px;
+  }
+
+  .profile-header {
+    padding: 15px;
+  }
+
+  .logo {
+    height: 80px;
+  }
+
+  .profile-form h1 {
+    font-size: 20px;
+  }
+
+  .form-group input[type="text"] {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .file-upload-area {
+    padding: 15px;
+  }
+
+  .file-upload-icon {
+    font-size: 32px;
+  }
+
+  .role-option {
+    padding: 12px 15px;
+  }
+
+  .role-option span {
+    font-size: 14px;
+  }
+}

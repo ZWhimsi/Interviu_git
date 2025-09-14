@@ -69,7 +69,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-links">
-          <a href="/about" className="footer-link hover-lift">
+          <a href="/" className="footer-link hover-lift">
             About
           </a>
           <a href="/features" className="footer-link hover-lift">

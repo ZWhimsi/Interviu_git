@@ -26,70 +26,6 @@
   box-shadow: var(--header-shadow);
 }
 
-.header-toggle {
-  position: absolute;
-  left: 1.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-}
-
-.header-toggle-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background-color: var(--toggle-bg);
-  color: var(--toggle-text);
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-
-.header-toggle-button:hover {
-  transform: scale(1.05);
-  background-color: var(--toggle-hover);
-}
-
-.header-toggle-button svg {
-  width: 22px;
-  height: 22px;
-  transition: all 0.5s ease;
-}
-
-.header-toggle-button:hover svg {
-  transform: rotate(30deg);
-}
-
-/* Animation for toggle button switch */
-.header-toggle-button .icon-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.header-toggle-button .icon-switch {
-  position: absolute;
-  transition: transform 0.5s ease, opacity 0.3s ease;
-}
-
-.header-toggle-button .icon-switch.visible {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.header-toggle-button .icon-switch.hidden {
-  transform: translateY(30px);
-  opacity: 0;
-}
-
 .header-brand {
   display: flex;
   justify-content: center;
@@ -149,15 +85,6 @@
   .header-logo {
     width: 2rem;
     height: 2rem;
-  }
-
-  .header-toggle-button {
-    width: 38px;
-    height: 38px;
-  }
-
-  .header-toggle {
-    left: 1rem;
   }
 
   .header-auth-button {

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SocialAuthButtons from "../components/SocialAuthButtons";
+import { useAuth } from "../context/AuthContext";
 import "./SignUpForm.css";
 
 export default function SignUpForm() {
@@ -13,14 +14,14 @@ export default function SignUpForm() {
     password?: string;
     confirmPassword?: string;
   }>({});
-  const [isLoading, setIsLoading] = useState(false);
+  const { register, isLoading, error, clearError } = useAuth();
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Reset errors
@@ -30,6 +31,7 @@ export default function SignUpForm() {
       password?: string;
       confirmPassword?: string;
     } = {};
+    clearError();
 
     // Validate name
     if (!name) {
@@ -63,19 +65,22 @@ export default function SignUpForm() {
       return;
     }
 
-    // Clear errors and start loading
+    // Clear errors and attempt registration
     setErrors({});
-    setIsLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      await register(name, email, password, confirmPassword);
       // Reset form on success
       setName("");
       setEmail("");
       setPassword("");
       setConfirmPassword("");
-    }, 1500);
+      // Redirect to profile completion page
+      window.location.href = "/profile";
+    } catch (error: any) {
+      // Error is handled by the auth context
+      console.error("Registration failed:", error);
+    }
   };
 
   return (
@@ -87,6 +92,9 @@ export default function SignUpForm() {
         onSubmit={handleSubmit}
       >
         <h2 className="sign-up-form-title">Sign Up</h2>
+
+        {/* API Error Display */}
+        {error && <div className="sign-up-api-error">{error}</div>}
 
         <label className="sign-up-form-label">
           Name

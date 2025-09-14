@@ -28,8 +28,8 @@
 }
 
 .social-auth-buttons-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .social-auth-divider {
@@ -62,20 +62,22 @@
   padding: 0.875rem 1rem;
   background-color: var(--form-bg);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   color: var(--color-text);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .social-auth-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
   border-color: var(--color-primary);
 }
 
 .social-auth-button:active {
-  transform: translateY(-1px);
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .social-auth-button-text {

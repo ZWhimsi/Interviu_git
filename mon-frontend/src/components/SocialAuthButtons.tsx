@@ -6,19 +6,21 @@ interface SocialAuthButtonsProps {
 }
 
 export default function SocialAuthButtons({ mode }: SocialAuthButtonsProps) {
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
   const handleGoogleAuth = () => {
-    console.log(`Google ${mode}`);
-    // Implement Google Auth logic
+    // Redirect to backend Google OAuth endpoint
+    window.location.href = `${API_URL}/api/auth/google`;
   };
 
   const handleAppleAuth = () => {
-    console.log(`Apple ${mode}`);
-    // Implement Apple Auth logic
+    // Redirect to backend Apple OAuth endpoint
+    window.location.href = `${API_URL}/api/auth/apple`;
   };
 
   const handleMicrosoftAuth = () => {
-    console.log(`Microsoft ${mode}`);
-    // Implement Microsoft Auth logic
+    // Redirect to backend Microsoft OAuth endpoint
+    window.location.href = `${API_URL}/api/auth/microsoft`;
   };
 
   const actionText = mode === "signup" ? "Sign up" : "Sign in";

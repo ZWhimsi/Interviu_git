@@ -1,0 +1,125 @@
+.pricing-page {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.pricing-hero {
+  background: linear-gradient(135deg, #5639fe 0%, #66e8fd 100%);
+  padding: 4rem 2rem 3rem;
+  text-align: center;
+}
+
+.pricing-hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 1rem 0;
+}
+
+.pricing-hero-subtitle {
+  font-size: 1.125rem;
+  color: white;
+  opacity: 0.95;
+}
+
+.pricing-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.pricing-card {
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 2.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.pricing-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(86, 57, 254, 0.15);
+  border-color: #5639fe;
+}
+
+.pricing-card h3 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #01091e;
+  margin-bottom: 1rem;
+}
+
+.pricing-price {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #5639fe, #66e8fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2rem;
+}
+
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.pricing-features li {
+  padding: 0.75rem 0;
+  color: #475569;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* Plan CTA Buttons - Classe réellement utilisée dans PricingPage.tsx */
+.plan-cta {
+  width: 100%;
+  background: linear-gradient(135deg, #5639fe 0%, #66e8fd 50%, #5e91fe 100%);
+  color: white;
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(86, 57, 254, 0.25);
+  font-family: "Poppins", sans-serif;
+}
+
+.plan-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(86, 57, 254, 0.35);
+}
+
+.plan-cta.primary {
+  background: linear-gradient(135deg, #5639fe 0%, #66e8fd 50%, #5e91fe 100%);
+}
+
+.plan-cta.secondary {
+  background: white;
+  color: #5639fe;
+  border: 2px solid #5639fe;
+}
+
+.plan-cta.secondary:hover {
+  background: rgba(86, 57, 254, 0.05);
+}
+
+@media (max-width: 768px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-hero-content h1 {
+    font-size: 2.25rem;
+  }
+}

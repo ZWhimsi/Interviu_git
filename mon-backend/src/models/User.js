@@ -23,7 +23,10 @@ const UserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Please provide a password"],
+      required: function () {
+        // Password only required for local auth (not OAuth)
+        return !this.authProvider || this.authProvider === "local";
+      },
       minlength: [8, "Password must be at least 8 characters"],
       select: false, // Don't return password by default in queries
     },
@@ -31,6 +34,28 @@ const UserSchema = new mongoose.Schema(
       type: String,
       enum: ["user", "admin"],
       default: "user",
+    },
+
+    // OAuth fields
+    authProvider: {
+      type: String,
+      enum: ["local", "google", "apple", "microsoft"],
+      default: "local",
+    },
+    googleId: {
+      type: String,
+      sparse: true, // Allows multiple null values but unique non-null values
+      unique: true,
+    },
+    appleId: {
+      type: String,
+      sparse: true,
+      unique: true,
+    },
+    microsoftId: {
+      type: String,
+      sparse: true,
+      unique: true,
     },
     createdAt: {
       type: Date,

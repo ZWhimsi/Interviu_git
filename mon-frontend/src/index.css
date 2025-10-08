@@ -12,10 +12,12 @@
   display: none; /* WebKit browsers (Chrome, Safari, Edge) */
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
-  overflow: hidden; /* Prevent all scrolling */
-  height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -48,23 +50,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Dark mode variables */
-.dark {
-  --bg-primary: #010916;
-  --bg-secondary: #070854;
-  --text-primary: #ffffff;
-  --text-secondary: #a0aec0;
-  --border-color: #1f2937;
-  --input-bg: #070854;
-  --input-border: #374151;
-  --accent-color: #5639fe;
-  --accent-color-dark: #070854;
-  --accent-color-light: #5e91fe;
-  --accent-cyan: #66e8fd;
-  --shadow: rgba(0, 0, 0, 0.3);
-  --gradient-primary: linear-gradient(135deg, #5639fe, #66e8fd);
-  --gradient-secondary: linear-gradient(135deg, #070854, #5639fe);
-}
+/* Dark mode variables - ONLY applied to specific pages via CSS */
+/* Do NOT apply dark mode variables globally to avoid artifacts */
 
 a {
   font-weight: 500;
@@ -77,8 +64,6 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }

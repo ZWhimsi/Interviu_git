@@ -1,6 +1,23 @@
+/**
+ * Sign In Page - Authentication
+ *
+ * Purpose: User login with email/password or OAuth
+ * Methods: Email/Password, Google OAuth, Microsoft OAuth
+ *
+ * Flow: Login → Check profile complete → Redirect to /profile or /dashboard
+ *
+ * Architecture: PageHeader + Centered form + Footer
+ * Dark Mode: NO (public page, always light)
+ * Background: Gradient (#f5f7fa → #c3cfe2)
+ *
+ * @module SignInPage
+ */
+
 import { useState } from "react";
-import Header from "../signup_components/Header";
-import Footer from "../signup_components/Footer";
+import PageHeader from "../components/PageHeader";
+import Footer from "../components/Footer";
+import "../components/PageHeader.css";
+import "../components/Footer.css";
 import SocialAuthButtons from "../components/SocialAuthButtons";
 import { useAuth } from "../context/AuthContext";
 import "./SignInPage.css";
@@ -86,7 +103,7 @@ export default function SignInPage() {
 
   return (
     <div className="signin-page">
-      <Header />
+      <PageHeader />
 
       <main className="signin-page-content">
         <div className="signin-container">

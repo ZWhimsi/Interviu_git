@@ -1,0 +1,104 @@
+# ============================================================================
+# InterviU - Professional .gitignore
+# Purpose: Exclude build artifacts, secrets, dependencies, user data
+# ============================================================================
+
+# ============================================================================
+# Dependencies (never commit)
+# ============================================================================
+node_modules/
+mon-backend/node_modules/
+mon-frontend/node_modules/
+package-lock.json
+*.lock
+
+# ============================================================================
+# Environment Variables & Secrets (CRITICAL - never commit)
+# ============================================================================
+.env
+.env.local
+.env.*.local
+mon-backend/.env
+mon-frontend/.env
+
+# API Keys (extra safety)
+**/config/keys.js
+**/config/secrets.js
+
+# ============================================================================
+# Build Outputs (generated, not source)
+# ============================================================================
+dist/
+build/
+mon-frontend/dist/
+mon-backend/dist/
+
+# ============================================================================
+# User Uploaded Files (personal data, large)
+# ============================================================================
+mon-backend/uploads/cv/*.pdf
+mon-backend/uploads/profile/*.jpg
+mon-backend/uploads/profile/*.jpeg
+mon-backend/uploads/profile/*.png
+
+# Keep directory structure
+!mon-backend/uploads/cv/.gitkeep
+!mon-backend/uploads/profile/.gitkeep
+
+# ============================================================================
+# Logs (verbose, not source)
+# ============================================================================
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+mon-backend/logs/
+
+# ============================================================================
+# OS & Editor Files
+# ============================================================================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Cursor specific
+.cursor/
+.cursorignore
+
+# ============================================================================
+# Testing & Coverage
+# ============================================================================
+coverage/
+.nyc_output/
+*.test.js.snap
+
+# ============================================================================
+# Temporary Files
+# ============================================================================
+*.tmp
+*.temp
+.cache/
+.parcel-cache/
+
+# ============================================================================
+# What TO COMMIT (whitelist pattern - be explicit)
+# ============================================================================
+# Source code: *.js, *.jsx, *.ts, *.tsx, *.css, *.html
+# Config: package.json, tsconfig.json, vite.config.ts, etc.
+# Documentation: *.md (except notes)
+# Assets: public/, logo.svg
+
+# Documentation notes to exclude
+**/notes/
+**/drafts/
+TODO_TEMP.md
+NOTES.md
+
+# ============================================================================
+# END
+# ============================================================================

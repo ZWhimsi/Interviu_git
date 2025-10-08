@@ -1,6 +1,30 @@
+/**
+ * Sign Up Page - User Registration
+ *
+ * Purpose: New user account creation
+ * Methods: Email/Password (with validation), Google OAuth, Microsoft OAuth
+ *
+ * Validation:
+ *   - Name required
+ *   - Email valid format
+ *   - Password ≥8 chars
+ *   - Password confirmation match
+ *   - Privacy/Terms consent checkbox (mandatory)
+ *
+ * Flow: Register → JWT token → Redirect to /profile
+ *
+ * Architecture: PageHeader + Centered form + Footer
+ * Dark Mode: NO (public page, always light)
+ * Background: Gradient (#f5f7fa → #c3cfe2)
+ *
+ * @module SignUpPage
+ */
+
 import { useState } from "react";
-import Header from "../signup_components/Header";
-import Footer from "../signup_components/Footer";
+import PageHeader from "../components/PageHeader";
+import Footer from "../components/Footer";
+import "../components/PageHeader.css";
+import "../components/Footer.css";
 import SocialAuthButtons from "../components/SocialAuthButtons";
 import { useAuth } from "../context/AuthContext";
 import "./SignUpPage.css";
@@ -12,11 +36,13 @@ export default function SignUpPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [errors, setErrors] = useState<{
     name?: string;
     email?: string;
     password?: string;
     confirmPassword?: string;
+    terms?: string;
   }>({});
   const { register, isLoading, error, clearError } = useAuth();
 
@@ -63,6 +89,12 @@ export default function SignUpPage() {
       newErrors.confirmPassword = "Passwords don't match";
     }
 
+    // Validate terms agreement
+    if (!agreedToTerms) {
+      newErrors.terms =
+        "You must agree to the Privacy Policy and Terms of Service";
+    }
+
     // If there are errors, don't submit
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -89,7 +121,7 @@ export default function SignUpPage() {
 
   return (
     <div className="signup-page">
-      <Header />
+      <PageHeader />
 
       <main className="signup-page-content">
         <div className="signup-container">
@@ -328,10 +360,35 @@ export default function SignUpPage() {
               )}
             </div>
 
+            {/* Terms and Privacy Consent */}
+            <div className="signup-form-group consent-group">
+              <label className="consent-label">
+                <input
+                  type="checkbox"
+                  checked={agreedToTerms}
+                  onChange={(e) => setAgreedToTerms(e.target.checked)}
+                  className="consent-checkbox"
+                />
+                <span className="consent-text">
+                  I agree to the{" "}
+                  <a href="/privacy" target="_blank" rel="noopener noreferrer">
+                    Privacy Policy
+                  </a>{" "}
+                  and{" "}
+                  <a href="/terms" target="_blank" rel="noopener noreferrer">
+                    Terms of Service
+                  </a>
+                </span>
+              </label>
+              {errors.terms && (
+                <div className="signup-error consent-error">{errors.terms}</div>
+              )}
+            </div>
+
             <button
               type="submit"
               className={`signup-button ${isLoading ? "loading" : ""}`}
-              disabled={isLoading}
+              disabled={isLoading || !agreedToTerms}
             >
               {isLoading ? "Creating Account..." : "Sign Up"}
             </button>

@@ -5,9 +5,17 @@ import { AuthProvider } from "./context/AuthContext";
 import LandingPage from "./pages/LandingPage";
 import SignInPage from "./pages/SignInpage";
 import SignUpPage from "./pages/SignUpPage";
+import AuthCallbackPage from "./pages/AuthCallbackPage";
 import ProfilePage from "./pages/ProfilePage";
 import UserProfilePage from "./pages/UserProfilePage";
 import DashboardPage from "./pages/DashboardPage";
+import CVAnalysisPage from "./pages/CVAnalysisPage";
+import AboutPage from "./pages/AboutPage";
+import FeaturesPage from "./pages/FeaturesPage";
+import PricingPage from "./pages/PricingPage";
+import ContactPage from "./pages/ContactPage";
+import PrivacyPage from "./pages/PrivacyPage";
+import TermsPage from "./pages/TermsPage";
 import "./App.css";
 
 export default function App() {
@@ -16,8 +24,12 @@ export default function App() {
 
   // Handle navigation and browser back/forward buttons
   useEffect(() => {
+    // Force scroll to top on path change
+    window.scrollTo(0, 0);
+
     const handleLocationChange = () => {
       setCurrentPath(window.location.pathname);
+      window.scrollTo(0, 0);
     };
 
     // Update page title based on current path
@@ -85,12 +97,28 @@ export default function App() {
         return <SignInPage />;
       case "/signup":
         return <SignUpPage />;
+      case "/auth/callback":
+        return <AuthCallbackPage />;
       case "/profile":
         return <ProfilePage />;
       case "/user-profile":
         return <UserProfilePage />;
       case "/dashboard":
         return <DashboardPage />;
+      case "/cv-analysis":
+        return <CVAnalysisPage />;
+      case "/about":
+        return <AboutPage />;
+      case "/features":
+        return <FeaturesPage />;
+      case "/pricing":
+        return <PricingPage />;
+      case "/contact":
+        return <ContactPage />;
+      case "/privacy":
+        return <PrivacyPage />;
+      case "/terms":
+        return <TermsPage />;
       default:
         return <LandingPage />;
     }

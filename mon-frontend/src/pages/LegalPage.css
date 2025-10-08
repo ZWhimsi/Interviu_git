@@ -1,0 +1,80 @@
+/* Legal Pages (Privacy, Terms) */
+.legal-page {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.legal-hero {
+  background: linear-gradient(135deg, #5639fe 0%, #66e8fd 100%);
+  padding: 4rem 2rem 3rem;
+  text-align: center;
+}
+
+.legal-hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 1rem 0;
+}
+
+.legal-hero-subtitle {
+  font-size: 1.125rem;
+  color: white;
+  opacity: 0.95;
+}
+
+.legal-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.legal-section {
+  margin-bottom: 3rem;
+}
+
+.legal-section h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #01091e;
+  margin: 0 0 1rem 0;
+}
+
+.legal-section h3 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: #070b54;
+  margin: 2rem 0 1rem 0;
+}
+
+.legal-section p {
+  color: #475569;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.legal-section ul {
+  padding-left: 2rem;
+  margin: 1rem 0;
+}
+
+.legal-section li {
+  color: #475569;
+  line-height: 1.8;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .legal-hero-content h1 {
+    font-size: 2.25rem;
+  }
+
+  .legal-content {
+    padding: 2rem 1.5rem;
+  }
+
+  .legal-section h2 {
+    font-size: 1.5rem;
+  }
+}
+

@@ -1,0 +1,89 @@
+/* Ultra Simple Footer - Centered, Compact */
+.simple-footer {
+  background: #f8f9fa;
+  border-top: 1px solid #e2e8f0;
+  padding: 1.25rem 1.5rem 0.875rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.footer-brand:hover {
+  opacity: 0.8;
+}
+
+.footer-logo {
+  width: 40px;
+  height: 40px;
+}
+
+.footer-brand-name {
+  font-size: 1.375rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #5639fe 0%, #66e8fd 50%, #5e91fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.25rem;
+}
+
+.footer-links a {
+  color: #070b54;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #5639fe;
+}
+
+.footer-copyright {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 0;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .simple-footer {
+    padding: 1rem 1.25rem 0.75rem;
+  }
+
+  .footer-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .footer-brand-name {
+    font-size: 1.25rem;
+  }
+
+  .footer-links {
+    gap: 1rem;
+  }
+}
+

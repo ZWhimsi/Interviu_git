@@ -7,6 +7,7 @@ const logger = require("./utils/logger");
 const authRoutes = require("./routes/authRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
+const cvRoutes = require("./routes/cvRoutes");
 
 // Load environment variables
 dotenv.config();
@@ -37,6 +38,7 @@ if (process.env.NODE_ENV === "development") {
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api/cv", cvRoutes);
 
 // Default route
 app.get("/", (req, res) => {

@@ -1,6 +1,24 @@
+/**
+ * Settings Page - User Account Management (Post-Login)
+ *
+ * Purpose: Allow users to manage profile, account, and preferences
+ * Tabs: Profile (name, experience, field) | Account (email, password, delete) | Preferences (dark mode, notifications)
+ *
+ * Architecture: Header (Dashboard button + Logo + Logout) + Tabs + Content
+ * Dark Mode: Fully supported
+ * CSS Classes: `.settings-*` (modular, no conflicts)
+ *
+ * @module UserProfilePage
+ */
+
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
+import { useDarkMode } from "../context/DarkModeContext";
 import "./UserProfilePage.css";
+
+// ============================================================================
+// TypeScript Interfaces
+// ============================================================================
 
 interface ProfileData {
   id: string;
@@ -16,25 +34,23 @@ interface ProfileData {
 }
 
 export default function UserProfilePage() {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
+  const { darkMode, toggleDarkMode } = useDarkMode();
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isSaving, setIsSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<
+    "profile" | "account" | "preferences"
+  >("profile");
 
-  // Form state
+  // Form states
   const [formData, setFormData] = useState({
     name: "",
     experience: "",
     field: "",
-    availableRoles: [] as string[],
   });
-
-  // File upload state
-  const [cvFile, setCvFile] = useState<File | null>(null);
-  const [profilePicture, setProfilePicture] = useState<File | null>(null);
-  const [uploadingFile, setUploadingFile] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   // Load profile data
   useEffect(() => {
@@ -54,12 +70,10 @@ export default function UserProfilePage() {
             name: data.data.name || "",
             experience: data.data.experience || "",
             field: data.data.field || "",
-            availableRoles: data.data.availableRoles || [],
           });
         }
       } catch (error) {
         console.error("Error loading profile:", error);
-        setError("Failed to load profile data");
       } finally {
         setIsLoading(false);
       }
@@ -70,70 +84,10 @@ export default function UserProfilePage() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleRoleToggle = (role: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      availableRoles: prev.availableRoles.includes(role)
-        ? prev.availableRoles.filter((r) => r !== role)
-        : [...prev.availableRoles, role],
-    }));
-  };
-
-  const handleFileChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: "cv" | "profile"
-  ) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      if (type === "cv") {
-        setCvFile(file);
-      } else {
-        setProfilePicture(file);
-      }
-    }
-  };
-
-  const uploadFile = async (file: File, type: "cv" | "profile") => {
-    setUploadingFile(type);
-    try {
-      const token = localStorage.getItem("authToken");
-      const formData = new FormData();
-      formData.append(type, file);
-      formData.append("fileType", type);
-
-      const response = await fetch(`http://localhost:5000/api/upload/${type}`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setSuccess(`${type.toUpperCase()} uploaded successfully!`);
-        // Reload profile data to get updated file paths
-        window.location.reload();
-      } else {
-        const errorData = await response.json();
-        setError(errorData.error || `Failed to upload ${type}`);
-      }
-    } catch (error) {
-      console.error(`Error uploading ${type}:`, error);
-      setError(`Failed to upload ${type}`);
-    } finally {
-      setUploadingFile(null);
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSaveProfile = async () => {
     setIsSaving(true);
     setError(null);
     setSuccess(null);
@@ -150,15 +104,12 @@ export default function UserProfilePage() {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        setProfileData(data.data);
         setSuccess("Profile updated successfully!");
+        setTimeout(() => setSuccess(null), 3000);
       } else {
-        const errorData = await response.json();
-        setError(errorData.error || "Failed to update profile");
+        setError("Failed to update profile");
       }
     } catch (error) {
-      console.error("Error updating profile:", error);
       setError("Failed to update profile");
     } finally {
       setIsSaving(false);
@@ -172,239 +123,196 @@ export default function UserProfilePage() {
 
   if (isLoading) {
     return (
-      <div className="user-profile-page">
-        <div className="profile-loading">
+      <div className="settings-page">
+        <div className="settings-loading">
           <div className="loading-spinner"></div>
-          <p>Loading your profile...</p>
+          <p>Loading settings...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="user-profile-page">
-      <div className="profile-container">
-        <div className="profile-header">
-          <div className="logo-container">
-            <img src="/logo.svg" alt="InterviU Logo" className="logo" />
-          </div>
-          <div className="profile-actions">
-            <button
-              className="dashboard-button"
-              onClick={() => (window.location.href = "/dashboard")}
-            >
-              Dashboard
-            </button>
-            <button className="logout-button" onClick={handleLogout}>
-              Logout
-            </button>
-          </div>
+    <div className="settings-page">
+      {/* Header with Navigation */}
+      <div className="settings-header">
+        <button
+          className="back-button"
+          onClick={() => (window.location.href = "/dashboard")}
+        >
+          Dashboard
+        </button>
+        <div className="header-logo">
+          <img src="/logo.svg" alt="InterviU" />
+          <span>InterviU</span>
         </div>
+        <button className="logout-button-header" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
 
-        <div className="profile-content">
-          <div className="profile-sidebar">
-            <div className="profile-picture-section">
-              {profileData?.profilePicturePath ? (
-                <img
-                  src={`http://localhost:5000/api/upload/profile/${profileData.profilePicturePath}`}
-                  alt="Profile"
-                  className="profile-picture"
-                />
-              ) : (
-                <div className="profile-picture-placeholder">
-                  <span>👤</span>
-                </div>
-              )}
-              <div className="file-upload-area small">
-                <input
-                  type="file"
-                  accept=".png,.jpg,.jpeg"
-                  onChange={(e) => handleFileChange(e, "profile")}
-                  className="file-input"
-                />
-                <div className="file-upload-content">
-                  <span>📷</span>
-                  <p>Change Photo</p>
-                </div>
-              </div>
-              {profilePicture && (
-                <button
-                  className="upload-button"
-                  onClick={() => uploadFile(profilePicture, "profile")}
-                  disabled={uploadingFile === "profile"}
-                >
-                  {uploadingFile === "profile"
-                    ? "Uploading..."
-                    : "Upload Photo"}
-                </button>
-              )}
-            </div>
+      {/* Main Content */}
+      <main className="settings-main-full">
+        <div className="settings-container">
+          <h1 className="settings-title">Settings</h1>
 
-            <div className="profile-info">
-              <h3>{profileData?.name || "User"}</h3>
-              <p>{profileData?.email}</p>
-              <div className="current-role">
-                <span className="role-badge">{profileData?.currentRole}</span>
-              </div>
-            </div>
+          {/* Tabs */}
+          <div className="settings-tabs">
+            <button
+              className={`tab-button ${
+                activeTab === "profile" ? "active" : ""
+              }`}
+              onClick={() => setActiveTab("profile")}
+            >
+              Profile
+            </button>
+            <button
+              className={`tab-button ${
+                activeTab === "account" ? "active" : ""
+              }`}
+              onClick={() => setActiveTab("account")}
+            >
+              Account
+            </button>
+            <button
+              className={`tab-button ${
+                activeTab === "preferences" ? "active" : ""
+              }`}
+              onClick={() => setActiveTab("preferences")}
+            >
+              Preferences
+            </button>
           </div>
 
-          <div className="profile-main">
-            <h1>Edit Profile</h1>
-            <p className="profile-subtitle">
-              Update your information and preferences
-            </p>
+          {/* Messages */}
+          {error && <div className="message error">{error}</div>}
+          {success && <div className="message success">{success}</div>}
 
-            {/* Error/Success Messages */}
-            {error && <div className="profile-error">{error}</div>}
-            {success && <div className="profile-success">{success}</div>}
+          {/* Tab Content */}
+          <div className="settings-content">
+            {activeTab === "profile" && (
+              <div className="tab-panel">
+                <h2>Profile Information</h2>
 
-            <form className="profile-form" onSubmit={handleSubmit}>
-              {/* Name Field */}
-              <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  placeholder="Your full name"
-                />
-              </div>
-
-              {/* Experience Field */}
-              <div className="form-group">
-                <label htmlFor="experience">Experience</label>
-                <input
-                  type="text"
-                  id="experience"
-                  name="experience"
-                  value={formData.experience}
-                  onChange={handleInputChange}
-                  placeholder="e.g., 5 years in software development"
-                />
-              </div>
-
-              {/* Field Field */}
-              <div className="form-group">
-                <label htmlFor="field">Field</label>
-                <input
-                  type="text"
-                  id="field"
-                  name="field"
-                  value={formData.field}
-                  onChange={handleInputChange}
-                  placeholder="e.g., Technology, Marketing, Finance"
-                />
-              </div>
-
-              {/* CV Upload */}
-              <div className="form-group">
-                <label htmlFor="cv">CV</label>
-                <div className="cv-section">
-                  {profileData?.cvPath ? (
-                    <div className="current-cv">
-                      <span>📄</span>
-                      <span>Current CV: {profileData.cvPath}</span>
-                      <a
-                        href={`http://localhost:5000/api/upload/cv/${profileData.cvPath}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="view-cv-link"
-                      >
-                        View CV
-                      </a>
-                    </div>
-                  ) : (
-                    <div className="no-cv">No CV uploaded</div>
-                  )}
-
-                  <div className="file-upload-area">
-                    <input
-                      type="file"
-                      id="cv"
-                      accept=".pdf"
-                      onChange={(e) => handleFileChange(e, "cv")}
-                      className="file-input"
-                    />
-                    <div className="file-upload-content">
-                      <div className="file-upload-icon">📄</div>
-                      <p>Drop your CV here or click to browse</p>
-                      <span className="file-format">PDF only</span>
-                      {cvFile && (
-                        <p className="selected-file">Selected: {cvFile.name}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  {cvFile && (
-                    <button
-                      className="upload-button"
-                      onClick={() => uploadFile(cvFile, "cv")}
-                      disabled={uploadingFile === "cv"}
-                    >
-                      {uploadingFile === "cv" ? "Uploading..." : "Upload CV"}
-                    </button>
-                  )}
+                <div className="form-group">
+                  <label>Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="Your full name"
+                  />
                 </div>
-              </div>
 
-              {/* Role Selection */}
-              <div className="form-group">
-                <label>Available Roles</label>
-                <div className="role-selection">
-                  <div
-                    className={`role-option ${
-                      formData.availableRoles.includes("recruiter")
-                        ? "selected"
-                        : ""
-                    }`}
-                    onClick={() => handleRoleToggle("recruiter")}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={formData.availableRoles.includes("recruiter")}
-                      onChange={() => handleRoleToggle("recruiter")}
-                    />
-                    <span>Recruiter</span>
-                  </div>
-                  <div
-                    className={`role-option ${
-                      formData.availableRoles.includes("interviewer")
-                        ? "selected"
-                        : ""
-                    }`}
-                    onClick={() => handleRoleToggle("interviewer")}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={formData.availableRoles.includes("interviewer")}
-                      onChange={() => handleRoleToggle("interviewer")}
-                    />
-                    <span>Interviewer</span>
-                  </div>
+                <div className="form-group">
+                  <label>Experience</label>
+                  <input
+                    type="text"
+                    name="experience"
+                    value={formData.experience}
+                    onChange={handleInputChange}
+                    placeholder="e.g., 5 years in software development"
+                  />
                 </div>
-                <p className="role-note">
-                  You can select both roles. This will determine the features
-                  available to you.
-                </p>
-              </div>
 
-              {/* Submit Button */}
-              <div className="form-actions">
+                <div className="form-group">
+                  <label>Field</label>
+                  <input
+                    type="text"
+                    name="field"
+                    value={formData.field}
+                    onChange={handleInputChange}
+                    placeholder="e.g., Technology, Marketing, Finance"
+                  />
+                </div>
+
                 <button
-                  type="submit"
                   className="save-button"
+                  onClick={handleSaveProfile}
                   disabled={isSaving}
                 >
                   {isSaving ? "Saving..." : "Save Changes"}
                 </button>
               </div>
-            </form>
+            )}
+
+            {activeTab === "account" && (
+              <div className="tab-panel">
+                <h2>Account Settings</h2>
+
+                <div className="form-group">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    value={profileData?.email || ""}
+                    disabled
+                    className="disabled-input"
+                  />
+                  <p className="field-note">Email cannot be changed</p>
+                </div>
+
+                <div className="form-group">
+                  <label>Password</label>
+                  <button className="secondary-button">Change Password</button>
+                  <p className="field-note">
+                    Update your password to keep your account secure
+                  </p>
+                </div>
+
+                <div className="danger-zone">
+                  <h3>Danger Zone</h3>
+                  <p>Once you delete your account, there is no going back.</p>
+                  <button className="danger-button">Delete Account</button>
+                </div>
+              </div>
+            )}
+
+            {activeTab === "preferences" && (
+              <div className="tab-panel">
+                <h2>Preferences</h2>
+
+                <div className="preference-item">
+                  <div className="preference-info">
+                    <h3>Dark Mode</h3>
+                    <p>Toggle dark mode for better viewing at night</p>
+                  </div>
+                  <label className="toggle-switch">
+                    <input
+                      type="checkbox"
+                      checked={darkMode}
+                      onChange={toggleDarkMode}
+                    />
+                    <span className="toggle-slider"></span>
+                  </label>
+                </div>
+
+                <div className="preference-item">
+                  <div className="preference-info">
+                    <h3>Email Notifications</h3>
+                    <p>Receive email updates about your interviews</p>
+                  </div>
+                  <label className="toggle-switch">
+                    <input type="checkbox" defaultChecked />
+                    <span className="toggle-slider"></span>
+                  </label>
+                </div>
+
+                <div className="preference-item">
+                  <div className="preference-info">
+                    <h3>Interview Reminders</h3>
+                    <p>Get reminded before scheduled practice sessions</p>
+                  </div>
+                  <label className="toggle-switch">
+                    <input type="checkbox" defaultChecked />
+                    <span className="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+            )}
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

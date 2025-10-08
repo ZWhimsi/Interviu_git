@@ -25,7 +25,10 @@ const connectDB = async () => {
     });
   } catch (error) {
     logger.error(`Error connecting to MongoDB: ${error.message}`);
-    process.exit(1);
+    logger.warn(
+      `Running without MongoDB - authentication and user features will not work`
+    );
+    // Don't exit - allow server to run for testing contact form
   }
 };
 

@@ -42,11 +42,12 @@ export function DarkModeProvider({ children }: { children: ReactNode }) {
     // Debug
     console.log("Dark mode state changed:", darkMode);
 
-    // Apply class to html element
+    // Apply class to body element ONLY (not html)
+    // This way we can control which pages get dark mode
     if (darkMode) {
-      document.documentElement.classList.add("dark");
+      document.body.classList.add("dark-mode");
     } else {
-      document.documentElement.classList.remove("dark");
+      document.body.classList.remove("dark-mode");
     }
 
     // Save to localStorage

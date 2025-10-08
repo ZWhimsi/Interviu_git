@@ -43,9 +43,12 @@ exports.getProfile = async (req, res) => {
  */
 exports.updateProfile = async (req, res) => {
   try {
-    const { experience, field, availableRoles, isProfileComplete } = req.body;
+    const { name, experience, field, availableRoles, isProfileComplete } =
+      req.body;
 
     const updateData = {};
+
+    if (name !== undefined) updateData.name = name;
 
     if (experience !== undefined) updateData.experience = experience;
     if (field !== undefined) updateData.field = field;
@@ -68,20 +71,19 @@ exports.updateProfile = async (req, res) => {
       updateData.isProfileComplete = isProfileComplete;
     }
 
-    // Check if profile is complete
-    const user = await User.findById(req.user.id);
-    const isComplete =
-      user.name &&
-      user.experience &&
-      user.field &&
-      user.cvPath &&
-      user.availableRoles.length > 0;
-    updateData.isProfileComplete = Boolean(isComplete);
-
+    // Update the user profile
     const updatedUser = await User.findByIdAndUpdate(req.user.id, updateData, {
       new: true,
       runValidators: true,
     });
+
+    // Check if profile is complete (MANDATORY: Name + CV + at least one role)
+    const isComplete =
+      updatedUser.name &&
+      updatedUser.cvPath &&
+      updatedUser.availableRoles.length > 0;
+    updatedUser.isProfileComplete = Boolean(isComplete);
+    await updatedUser.save();
 
     logger.info(`Profile updated for user: ${updatedUser.email}`);
 

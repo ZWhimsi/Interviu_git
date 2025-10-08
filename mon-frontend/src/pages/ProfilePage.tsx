@@ -1,3 +1,19 @@
+/**
+ * Profile Completion Page - Onboarding (Post-Signup)
+ *
+ * Purpose: Complete user profile after initial signup (mandatory before dashboard)
+ * Fields: Name*, Experience, Field, CV*, Profile Picture, Available Roles*
+ *
+ * Validation: Name + CV + At least 1 role required
+ * Progress: 5 dots indicator showing completion
+ *
+ * Architecture: Gradient header + Form in white card
+ * Dark Mode: Fully supported
+ * Brand Colors: Gradient header (#5639FE → #66E8FD → #5E91FE)
+ *
+ * @module ProfilePage
+ */
+
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import "./ProfilePage.css";
@@ -149,9 +165,33 @@ export default function ProfilePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSaving(true);
     setError(null);
     setSuccess(null);
+
+    // Validate mandatory fields
+    const errors: string[] = [];
+
+    if (!formData.name.trim()) {
+      errors.push("Name is required");
+    }
+
+    if (!profileData?.cvPath && !cvFile) {
+      errors.push("CV is required - please upload your CV");
+    }
+
+    if (formData.availableRoles.length === 0) {
+      errors.push("Please select at least one role (Recruiter or Interviewer)");
+    }
+
+    // Show errors if validation fails
+    if (errors.length > 0) {
+      setError(errors.join(". "));
+      // Scroll to top to show error
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    setIsSaving(true);
 
     try {
       const token = localStorage.getItem("authToken");
@@ -161,7 +201,10 @@ export default function ProfilePage() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          name: formData.name, // Explicitly include name
+        }),
       });
 
       if (response.ok) {
@@ -203,6 +246,22 @@ export default function ProfilePage() {
     );
   }
 
+  // Calculate profile completion percentage
+  const calculateProgress = () => {
+    let completed = 0;
+    let total = 5; // Name, CV, Role, Experience, Field
+
+    if (formData.name) completed++;
+    if (profileData?.cvPath || cvFile) completed++;
+    if (formData.availableRoles.length > 0) completed++;
+    if (formData.experience) completed++;
+    if (formData.field) completed++;
+
+    return Math.round((completed / total) * 100);
+  };
+
+  const progress = calculateProgress();
+
   return (
     <div className="profile-page">
       <div className="profile-container">
@@ -210,14 +269,40 @@ export default function ProfilePage() {
           <div className="logo-container">
             <img src="/logo.svg?v=2" alt="InterviU Logo" className="logo" />
           </div>
+          <h1>Complete Your Profile</h1>
+          <p className="profile-subtitle">
+            {progress < 60
+              ? "Let's get you set up with a few details"
+              : progress < 100
+              ? "Almost there! Just a few more details"
+              : "Your profile is complete!"}
+          </p>
+
+          {/* Progress Dots - Order: Name, Experience, Field, CV, Role */}
+          <div className="progress-indicator">
+            <div
+              className={`progress-dot ${formData.name ? "active" : ""}`}
+            ></div>
+            <div
+              className={`progress-dot ${formData.experience ? "active" : ""}`}
+            ></div>
+            <div
+              className={`progress-dot ${formData.field ? "active" : ""}`}
+            ></div>
+            <div
+              className={`progress-dot ${
+                profileData?.cvPath || cvFile ? "active" : ""
+              }`}
+            ></div>
+            <div
+              className={`progress-dot ${
+                formData.availableRoles.length > 0 ? "active" : ""
+              }`}
+            ></div>
+          </div>
         </div>
 
         <form className="profile-form" onSubmit={handleSubmit}>
-          <h1>Complete Your Profile</h1>
-          <p className="profile-subtitle">
-            Help us understand your background to provide personalized features
-          </p>
-
           {/* Error/Success Messages */}
           {error && <div className="profile-error">{error}</div>}
           {success && <div className="profile-success">{success}</div>}
@@ -269,7 +354,11 @@ export default function ProfilePage() {
             <label htmlFor="cv">
               CV <span className="required">*</span>
             </label>
-            <div className="file-upload-area">
+            <div
+              className={`file-upload-area ${
+                profileData?.cvPath || cvFile ? "has-file" : ""
+              }`}
+            >
               <input
                 type="file"
                 id="cv"
@@ -279,10 +368,15 @@ export default function ProfilePage() {
               />
               <div className="file-upload-content">
                 <div className="file-upload-icon">📄</div>
-                <p>Drop your CV here or click to browse</p>
+                <p>
+                  {profileData?.cvPath || cvFile
+                    ? "✓ CV Uploaded"
+                    : "Drop your CV here or click to browse"}
+                </p>
                 <span className="file-format">PDF only</span>
-                {cvFile && (
-                  <p className="selected-file">Selected: {cvFile.name}</p>
+                {cvFile && <p className="selected-file">✓ {cvFile.name}</p>}
+                {profileData?.cvPath && !cvFile && (
+                  <p className="selected-file">✓ CV on file</p>
                 )}
               </div>
             </div>

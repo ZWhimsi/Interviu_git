@@ -1,1 +1,2 @@
-# Keep this directory in git (but not the PDFs)
+# Ce fichier maintient la structure du dossier uploads/cv
+# Les fichiers PDF uploadés ne sont pas versionnés pour des raisons de confidentialité

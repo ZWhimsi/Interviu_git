@@ -28,30 +28,35 @@ InterviU est une plateforme web innovante qui utilise l'intelligence artificiell
 ## ✨ Fonctionnalités
 
 ### 🔐 Authentification & Sécurité
+
 - ✅ Inscription/Connexion utilisateur
 - ✅ Authentification OAuth (Google, Microsoft, Apple)
 - ✅ Gestion des sessions JWT
 - ✅ Protection des routes sensibles
 
 ### 📄 Analyse de CV
+
 - ✅ Upload et parsing de CV (PDF, DOCX)
 - ✅ Extraction automatique des informations
 - ✅ Extraction des compétences et expériences
 - ✅ Analyse de la structure du document
 
 ### 🤖 Intelligence Artificielle
+
 - ✅ Intégration OpenAI pour l'analyse sémantique
 - ✅ Modèles Hugging Face pour le traitement du langage
 - ✅ Recommandations personnalisées
 - ✅ Scoring de compatibilité CV/Offre
 
 ### 👤 Gestion de Profil
+
 - ✅ Profil utilisateur complet
 - ✅ Historique des analyses
 - ✅ Gestion des fichiers uploadés
 - ✅ Tableau de bord personnalisé
 
 ### 📧 Communication
+
 - ✅ Formulaire de contact
 - ✅ Notifications par email
 - ✅ Support client intégré
@@ -61,6 +66,7 @@ InterviU est une plateforme web innovante qui utilise l'intelligence artificiell
 ### Stack Technologique
 
 #### Backend (Node.js)
+
 - **Framework** : Express.js
 - **Base de données** : MongoDB avec Mongoose
 - **Authentification** : JWT + Passport.js
@@ -70,6 +76,7 @@ InterviU est une plateforme web innovante qui utilise l'intelligence artificiell
 - **Validation** : Express-validator
 
 #### Frontend (React)
+
 - **Framework** : React 19 + TypeScript
 - **Build Tool** : Vite
 - **Styling** : Tailwind CSS
@@ -133,6 +140,7 @@ npm install
 ### 3. Configuration de l'Environnement
 
 #### Backend (mon-backend/.env)
+
 ```bash
 # Copier le fichier d'exemple
 cp .env.example .env
@@ -142,6 +150,7 @@ nano .env
 ```
 
 #### Frontend (mon-frontend/.env)
+
 ```bash
 # Copier le fichier d'exemple
 cp .env.example .env
@@ -163,6 +172,7 @@ npm run dev
 ```
 
 L'application sera accessible sur :
+
 - **Frontend** : http://localhost:5173
 - **Backend API** : http://localhost:5000
 
@@ -171,6 +181,7 @@ L'application sera accessible sur :
 ### Variables d'Environnement Requises
 
 #### Backend (.env)
+
 ```env
 # Configuration serveur
 NODE_ENV=development
@@ -206,6 +217,7 @@ HUGGING_FACE_API_KEY=your_hugging_face_api_key
 ```
 
 #### Frontend (.env)
+
 ```env
 VITE_API_URL=http://localhost:5000
 ```
@@ -213,15 +225,18 @@ VITE_API_URL=http://localhost:5000
 ### Configuration des Services Externes
 
 #### 1. MongoDB
+
 - **Local** : Installer MongoDB localement
 - **Atlas** : Créer un cluster MongoDB Atlas (recommandé)
 
 #### 2. OpenAI API
+
 - Créer un compte sur [OpenAI](https://platform.openai.com/)
 - Générer une clé API
 - Ajouter des crédits à votre compte
 
 #### 3. OAuth (Optionnel)
+
 - **Google** : [Google Cloud Console](https://console.cloud.google.com/)
 - **Microsoft** : [Azure Portal](https://portal.azure.com/)
 
@@ -230,6 +245,7 @@ VITE_API_URL=http://localhost:5000
 ### Scripts Disponibles
 
 #### Backend
+
 ```bash
 npm run dev      # Démarrage en mode développement
 npm run start    # Démarrage en mode production
@@ -237,6 +253,7 @@ npm test         # Exécution des tests
 ```
 
 #### Frontend
+
 ```bash
 npm run dev      # Démarrage en mode développement
 npm run build    # Build de production
@@ -257,17 +274,20 @@ Le backend inclut plusieurs services d'IA spécialisés :
 ### Base de Données
 
 #### Modèles Principaux
+
 - **User** : Utilisateurs et authentification
 - **CVAnalysis** : Analyses de CV et résultats
 
 ## 📚 Documentation
 
 ### Documentation Technique
+
 - [Architecture Documentation](./ARCHITECTURE_DOCUMENTATION.md)
 - [Developer Guide](./DEVELOPER_GUIDE.md)
 - [Project Roadmap](./PROJECT_ROADMAP.md)
 
 ### Guides Spécialisés
+
 - [Brand Guidelines](./BRAND_GUIDELINES.md)
 - [Contact Page Fixes](./CONTACT_PAGE_FIXES.md)
 - [Button Gradient Solutions](./BUTTON_GRADIENT_FINAL_SOLUTION.md)
@@ -277,16 +297,19 @@ Le backend inclut plusieurs services d'IA spécialisés :
 ### Options de Déploiement
 
 #### Backend
+
 - **Railway** (Recommandé) : Déploiement simple, base de données incluse
 - **Render** : Alternative gratuite avec limitations
 - **Heroku** : Solution robuste mais plus coûteuse
 
 #### Frontend
+
 - **Vercel** (Recommandé) : Optimisé pour React, déploiement automatique
 - **Netlify** : Alternative excellente pour les sites statiques
 - **GitHub Pages** : Gratuit mais limité
 
 #### Base de Données
+
 - **MongoDB Atlas** : Solution cloud recommandée
 - **Railway PostgreSQL** : Alternative si migration vers PostgreSQL
 

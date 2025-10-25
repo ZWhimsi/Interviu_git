@@ -61,14 +61,18 @@ async function checkATSFriendliness(cvText, cvPath = null) {
     );
   }
 
-  // Check 2: Quantifications (20 points)
+  // Check 2: Quantifications (20 points) - Pure calculation
+  const quantificationScore = Math.min(
+    20,
+    Math.round((checks.hasQuantifications.count / 5) * 20)
+  );
+  score += quantificationScore;
+
   if (checks.hasQuantifications.count >= 5) {
-    score += 20;
     logger.info(
       `[ATS] ✓ Good quantifications (${checks.hasQuantifications.count} found)`
     );
   } else {
-    score += Math.round((checks.hasQuantifications.count / 5) * 20);
     issues.push(
       `Only ${checks.hasQuantifications.count} quantified achievements found`
     );
@@ -122,11 +126,15 @@ async function checkATSFriendliness(cvText, cvPath = null) {
   logger.info(`[ATS Checker] Final ATS Score: ${score}/100`);
   logger.info(`[ATS Checker] Issues found: ${issues.length}`);
 
+  // Generate detailed explanations
+  const explanations = generateDetailedExplanations(checks, score);
+
   return {
     atsScore: score,
     issues,
     recommendations,
     details: checks,
+    explanations,
   };
 }
 
@@ -280,6 +288,108 @@ function checkLength(cvText) {
     issue,
     recommendation,
   };
+}
+
+/**
+ * Generate detailed explanations for ATS score
+ */
+function generateDetailedExplanations(checks, score) {
+  const explanations = {
+    overall: generateOverallExplanation(score),
+    sections: generateSectionExplanation(checks.hasStandardSections),
+    quantifications: generateQuantificationExplanation(
+      checks.hasQuantifications
+    ),
+    formatting: generateFormattingExplanation(checks.hasProperFormatting),
+    keywords: generateKeywordExplanation(checks.hasNoKeywordStuffing),
+    length: generateLengthExplanation(checks.lengthAppropriate),
+  };
+
+  return explanations;
+}
+
+function generateOverallExplanation(score) {
+  if (score >= 90) {
+    return "Excellent ATS compatibility! Your CV is highly optimized for automated systems and should pass through most ATS filters without issues.";
+  } else if (score >= 70) {
+    return "Good ATS compatibility. Your CV should work well with most systems, though some improvements could increase your success rate.";
+  } else if (score >= 50) {
+    return "Moderate ATS compatibility. Your CV may face challenges with some systems. Consider implementing the recommended improvements.";
+  } else {
+    return "Poor ATS compatibility. Your CV needs significant improvements to pass through automated systems effectively.";
+  }
+}
+
+function generateSectionExplanation(sectionCheck) {
+  const { found, total, missing, score } = sectionCheck;
+
+  if (score > 0.8) {
+    return `Excellent section structure! Found ${found}/${total} standard sections. ATS systems can easily parse your CV structure.`;
+  } else if (missing.length > 0) {
+    return `Missing important sections: ${missing.join(
+      ", "
+    )}. ATS systems expect these standard headers to properly categorize your information. Without them, your qualifications may be overlooked.`;
+  }
+  return "Section headers need improvement for better ATS parsing.";
+}
+
+function generateQuantificationExplanation(quantCheck) {
+  const { count, examples } = quantCheck;
+
+  if (count >= 5) {
+    return `Strong use of metrics! Found ${count} quantified achievements (e.g., ${examples
+      .slice(0, 2)
+      .join(
+        ", "
+      )}). This helps ATS systems recognize your concrete accomplishments.`;
+  } else if (count > 0) {
+    return `Limited quantification. Only ${count} metrics found. ATS systems favor CVs with specific numbers, percentages, and measurable results. Add more concrete achievements.`;
+  }
+  return "No quantified achievements found. ATS systems cannot identify the impact of your work without specific metrics.";
+}
+
+function generateFormattingExplanation(formatCheck) {
+  const { isClean, hasEmojis, hasSpecialChars } = formatCheck;
+
+  if (isClean) {
+    return "Clean formatting detected. Your CV uses standard characters that ATS systems can parse without issues.";
+  }
+
+  let issues = [];
+  if (hasEmojis) issues.push("emojis");
+  if (hasSpecialChars) issues.push("special characters");
+
+  return `Formatting issues found: ${issues.join(
+    " and "
+  )}. These can cause ATS parsing errors, potentially making sections of your CV unreadable to the system.`;
+}
+
+function generateKeywordExplanation(keywordCheck) {
+  const { isClean, suspiciousWords } = keywordCheck;
+
+  if (isClean) {
+    return "Natural keyword usage detected. Your CV avoids keyword stuffing while maintaining relevant terms.";
+  }
+
+  const topWords = suspiciousWords
+    .slice(0, 2)
+    .map((w) => `"${w.word}" (${w.count}x)`)
+    .join(", ");
+  return `Potential keyword stuffing detected. Words like ${topWords} appear too frequently. This can trigger ATS spam filters and hurt your ranking.`;
+}
+
+function generateLengthExplanation(lengthCheck) {
+  const { isGood, wordCount, issue } = lengthCheck;
+
+  if (isGood) {
+    return `Optimal CV length (${wordCount} words). This length allows comprehensive information while maintaining ATS readability.`;
+  }
+
+  if (wordCount < 200) {
+    return `CV too short (${wordCount} words). ATS systems may not have enough content to properly evaluate your qualifications. Aim for 400-800 words.`;
+  } else {
+    return `CV too long (${wordCount} words). Many ATS systems have character limits or may truncate long CVs. Focus on the most relevant 2-3 years of experience.`;
+  }
 }
 
 module.exports = {

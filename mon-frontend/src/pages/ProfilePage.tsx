@@ -16,6 +16,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
+import FeatureIcon from "../components/FeatureIcon";
 import "./ProfilePage.css";
 
 interface ProfileData {
@@ -367,16 +368,22 @@ export default function ProfilePage() {
                 className="file-input"
               />
               <div className="file-upload-content">
-                <div className="file-upload-icon">📄</div>
+                <div className="file-upload-icon">
+                  <FeatureIcon
+                    type="upload"
+                    size={48}
+                    className="upload-icon-svg"
+                  />
+                </div>
                 <p>
                   {profileData?.cvPath || cvFile
-                    ? "✓ CV Uploaded"
+                    ? "CV Uploaded"
                     : "Drop your CV here or click to browse"}
                 </p>
                 <span className="file-format">PDF only</span>
-                {cvFile && <p className="selected-file">✓ {cvFile.name}</p>}
+                {cvFile && <p className="selected-file">{cvFile.name}</p>}
                 {profileData?.cvPath && !cvFile && (
-                  <p className="selected-file">✓ CV on file</p>
+                  <p className="selected-file">CV on file</p>
                 )}
               </div>
             </div>

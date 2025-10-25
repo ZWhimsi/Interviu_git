@@ -1,9 +1,11 @@
 /* Dashboard Main Layout */
+/* Dashboard Page - Anti-flash optimization */
 .dashboard-page {
   height: 100vh;
   display: flex;
   background: #f8fafc;
   overflow: hidden;
+  will-change: background-color; /* Hint browser for smooth transition */
 }
 
 body.dark-mode .dashboard-page {
@@ -74,7 +76,7 @@ body.dark-mode .dashboard-main {
 .welcome-subtitle {
   font-size: 1.125rem;
   color: #64748b;
-  margin: 0 0 3rem 0;
+  margin: 0 0 1.5rem 0;
   max-width: 600px;
   line-height: 1.6;
   animation: slideDown 0.6s ease;
@@ -82,6 +84,31 @@ body.dark-mode .dashboard-main {
 
 body.dark-mode .welcome-subtitle {
   color: rgba(255, 255, 255, 0.7);
+}
+
+.role-indicator {
+  font-size: 0.875rem;
+  color: #475569;
+  margin: 0 0 3rem 0;
+  padding: 0.5rem 1.5rem;
+  background: rgba(86, 57, 254, 0.05);
+  border-radius: 20px;
+  display: inline-block;
+  animation: slideDown 0.7s ease;
+}
+
+.role-indicator strong {
+  color: #5639fe;
+  font-weight: 600;
+}
+
+body.dark-mode .role-indicator {
+  background: rgba(86, 57, 254, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+body.dark-mode .role-indicator strong {
+  color: #66e8fd;
 }
 
 @keyframes slideDown {
@@ -95,11 +122,35 @@ body.dark-mode .welcome-subtitle {
   }
 }
 
+/* Feature Icon Container */
+.dashboard-feature-icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #5639fe 0%, #66e8fd 50%, #5e91fe 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.75rem; /* Increased from 1rem */
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 12px rgba(86, 57, 254, 0.3);
+}
+
+.dashboard-feature-icon svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  color: white !important;
+}
+
+.dashboard-feature-icon svg * {
+  stroke: white !important;
+  fill: white !important;
+}
+
 /* Dashboard specific features grid - DO NOT CONFLICT WITH LANDING */
 .dashboard-features-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  gap: 2rem; /* Increased from 1.5rem */
   width: 100%;
   max-width: 900px;
   animation: fadeIn 0.7s ease;
@@ -118,7 +169,7 @@ body.dark-mode .welcome-subtitle {
   background: white;
   border: 2px solid #e2e8f0;
   border-radius: 20px;
-  padding: 2rem;
+  padding: 2.5rem; /* Increased from 2rem */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   display: flex;
@@ -126,6 +177,7 @@ body.dark-mode .welcome-subtitle {
   align-items: flex-start;
   position: relative;
   overflow: hidden;
+  min-height: 360px; /* Added minimum height for consistency */
 }
 
 body.dark-mode .dashboard-feature-card {
@@ -173,23 +225,23 @@ body.dark-mode .dashboard-feature-card {
   transform: scale(1.1) rotate(-5deg);
 }
 
-.feature-title {
+.dashboard-feature-title {
   font-size: 1.375rem;
   font-weight: 700;
   color: #1e293b;
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 1.25rem 0; /* Increased from 0.75rem */
 }
 
 body.dark-mode .dashboard-feature-title {
   color: white;
 }
 
-.feature-description {
+.dashboard-feature-description {
   font-size: 1rem;
   color: #64748b;
-  line-height: 1.6;
-  margin: 0 0 1.5rem 0;
-  flex: 1;
+  line-height: 1.7; /* Slightly increased for better readability */
+  margin: 0 0 2.5rem 0; /* Increased spacing before button */
+  flex: 1; /* Push button to bottom */
 }
 
 body.dark-mode .dashboard-feature-description {
@@ -325,7 +377,8 @@ body.dark-mode .dashboard-error h2 {
   }
 
   .dashboard-feature-card {
-    padding: 1.75rem;
+    padding: 2rem; /* Increased from 1.75rem */
+    min-height: auto; /* Remove minimum height on mobile */
   }
 }
 
@@ -343,7 +396,7 @@ body.dark-mode .dashboard-error h2 {
   }
 
   .dashboard-feature-card {
-    padding: 1.5rem;
+    padding: 1.75rem; /* Increased from 1.5rem */
   }
 
   .dashboard-feature-icon {

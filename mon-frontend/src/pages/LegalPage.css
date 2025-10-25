@@ -1,13 +1,16 @@
-/* Legal Pages (Privacy, Terms) */
+/* Legal Pages - Terms & Privacy - Clean Design */
 .legal-page {
   min-height: 100vh;
   background: #f8fafc;
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
 }
 
 .legal-hero {
   background: linear-gradient(135deg, #5639fe 0%, #66e8fd 100%);
-  padding: 4rem 2rem 3rem;
+  padding: 6rem 2rem 3rem;
   text-align: center;
+  margin-top: 80px;
 }
 
 .legal-hero-content h1 {
@@ -24,27 +27,25 @@
 }
 
 .legal-content {
-  max-width: 900px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 3rem 2rem;
+  padding: 4rem 2rem;
 }
 
 .legal-section {
-  margin-bottom: 3rem;
+  background: white;
+  border-radius: 20px;
+  padding: 3rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(1, 9, 30, 0.08);
+  border: 1px solid #e2e8f0;
 }
 
 .legal-section h2 {
   font-size: 1.75rem;
   font-weight: 600;
   color: #01091e;
-  margin: 0 0 1rem 0;
-}
-
-.legal-section h3 {
-  font-size: 1.375rem;
-  font-weight: 600;
-  color: #070b54;
-  margin: 2rem 0 1rem 0;
+  margin: 0 0 1.5rem 0;
 }
 
 .legal-section p {
@@ -54,14 +55,42 @@
 }
 
 .legal-section ul {
-  padding-left: 2rem;
+  list-style: none;
+  padding: 0;
   margin: 1rem 0;
 }
 
 .legal-section li {
   color: #475569;
   line-height: 1.8;
-  margin-bottom: 0.5rem;
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.legal-section li::before {
+  content: "•";
+  color: #5639fe;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.legal-section a {
+  color: #5639fe;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.legal-section a:hover {
+  color: #66e8fd;
+  text-decoration: underline;
+}
+
+.legal-section strong {
+  font-weight: 600;
+  color: #01091e;
 }
 
 @media (max-width: 768px) {
@@ -69,12 +98,7 @@
     font-size: 2.25rem;
   }
 
-  .legal-content {
+  .legal-section {
     padding: 2rem 1.5rem;
   }
-
-  .legal-section h2 {
-    font-size: 1.5rem;
-  }
 }
-

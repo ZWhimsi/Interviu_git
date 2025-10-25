@@ -71,9 +71,24 @@
   box-shadow: 0 8px 24px rgba(86, 57, 254, 0.1);
 }
 
+/* Value icon container - SVG support */
 .value-icon {
-  font-size: 2.5rem;
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1rem;
+  background: linear-gradient(135deg, #5639fe 0%, #66e8fd 50%, #5e91fe 100%);
+  border-radius: 16px;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(86, 57, 254, 0.25);
+}
+
+.value-icon svg {
+  color: white;
+  width: 32px;
+  height: 32px;
 }
 
 .value-card h3 {
@@ -205,9 +220,17 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
+/* Coming soon icon container - SVG support */
 .coming-soon-icon {
-  font-size: 4rem;
   margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.coming-soon-icon svg {
+  color: #5639fe; /* Brand violet */
+  width: 64px;
+  height: 64px;
 }
 
 .coming-soon-card h3 {

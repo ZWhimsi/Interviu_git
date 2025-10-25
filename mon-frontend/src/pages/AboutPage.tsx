@@ -14,6 +14,7 @@
 import "./AboutPage.css";
 import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
+import FeatureIcon from "../components/FeatureIcon";
 import "../components/Footer.css";
 import "../components/PageHeader.css";
 
@@ -80,15 +81,21 @@ export default function AboutPage() {
             </p>
             <div className="team-highlights">
               <div className="highlight-item">
-                <span className="highlight-icon">✓</span>
+                <span className="highlight-icon">
+                  <FeatureIcon type="check" size={16} />
+                </span>
                 <span>Expert team in AI and machine learning</span>
               </div>
               <div className="highlight-item">
-                <span className="highlight-icon">✓</span>
+                <span className="highlight-icon">
+                  <FeatureIcon type="check" size={16} />
+                </span>
                 <span>Extensive experience in tech recruitment</span>
               </div>
               <div className="highlight-item">
-                <span className="highlight-icon">✓</span>
+                <span className="highlight-icon">
+                  <FeatureIcon type="check" size={16} />
+                </span>
                 <span>Proven track record in interview coaching</span>
               </div>
             </div>
@@ -100,7 +107,9 @@ export default function AboutPage() {
             <h2>Our Values</h2>
             <div className="values-grid">
               <div className="value-card">
-                <div className="value-icon">🎯</div>
+                <div className="value-icon">
+                  <FeatureIcon type="target" size={48} color="white" />
+                </div>
                 <h3>Excellence</h3>
                 <p>
                   We strive for the highest quality in our AI models and user
@@ -108,7 +117,9 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="value-card">
-                <div className="value-icon">🤝</div>
+                <div className="value-icon">
+                  <FeatureIcon type="handshake" size={48} color="white" />
+                </div>
                 <h3>Accessibility</h3>
                 <p>
                   Professional interview coaching should be available to
@@ -116,7 +127,9 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="value-card">
-                <div className="value-icon">🚀</div>
+                <div className="value-icon">
+                  <FeatureIcon type="rocket" size={48} color="white" />
+                </div>
                 <h3>Innovation</h3>
                 <p>
                   We continuously improve our AI to provide the most effective
@@ -124,7 +137,9 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="value-card">
-                <div className="value-icon">💡</div>
+                <div className="value-icon">
+                  <FeatureIcon type="podium" size={48} color="white" />
+                </div>
                 <h3>Empowerment</h3>
                 <p>
                   We empower candidates with the skills and confidence to

@@ -20,6 +20,7 @@
 import { useEffect, useState, useRef } from "react";
 import "./LandingPage.css";
 import Footer from "../components/Footer";
+import FeatureIcon from "../components/FeatureIcon";
 import "../components/Footer.css";
 const logo = "/logo.svg";
 
@@ -65,7 +66,7 @@ export default function LandingPage() {
       botImprovedResponse:
         "I led a cross-functional team of 5 developers to architect and deploy a real-time analytics dashboard that reduced data processing time by 60%, improving user experience and saving $50K annually. I personally designed the React frontend, optimized the Node.js API layer, and implemented PostgreSQL query optimization, resulting in 3x faster load times.",
       feedback: [
-        { icon: "✓", text: "Great structure!" },
+        { icon: "check", text: "Great structure!" },
         { icon: "+", text: "Add more metrics" },
       ],
     },
@@ -90,7 +91,7 @@ export default function LandingPage() {
       botImprovedResponse:
         "I prioritize tasks using the Eisenhower matrix and Agile methodologies, maintaining daily standups to communicate progress. When I led a Q4 product launch with a compressed timeline, I broke it into 2-week sprints, identified risks early, and delivered 2 days ahead of schedule with zero critical bugs. I use Jira for tracking and Slack for real-time stakeholder updates.",
       feedback: [
-        { icon: "✓", text: "Excellent approach!" },
+        { icon: "check", text: "Excellent approach!" },
         { icon: "+", text: "Mention specific tools" },
       ],
     },
@@ -111,7 +112,7 @@ export default function LandingPage() {
       botImprovedResponse:
         "In Q2 2023, I deployed a payment feature with a critical rounding bug that affected 1,200 transactions totaling $3,400. Within 2 hours, I took full ownership, coordinated with our finance team to issue refunds, and implemented a hotfix. I then built a comprehensive E2E test suite covering edge cases and introduced mandatory code reviews for payment logic, reducing production bugs by 85% over the next 6 months.",
       feedback: [
-        { icon: "✓", text: "Good accountability!" },
+        { icon: "check", text: "Good accountability!" },
         { icon: "+", text: "Quantify the impact" },
       ],
     },
@@ -130,7 +131,7 @@ export default function LandingPage() {
       botImprovedResponse:
         "I'm specifically drawn to your company because of your work on the GPT-4 integration for accessibility features, which I've followed since your TechCrunch article in March. Having built an open-source screen reader that serves 50K users, I'm excited to contribute to your mission of democratizing AI. I'm particularly interested in your upcoming project on multilingual support mentioned in your Q3 roadmap, where my experience with i18n frameworks could add immediate value.",
       feedback: [
-        { icon: "✓", text: "Shows research!" },
+        { icon: "check", text: "Shows research!" },
         { icon: "+", text: "Be more specific" },
       ],
     },
@@ -435,7 +436,11 @@ export default function LandingPage() {
                             ].feedback.map((item, index) => (
                               <div key={index} className="feedback-badge">
                                 <span className="feedback-icon">
-                                  {item.icon}
+                                  {item.icon === "check" ? (
+                                    <FeatureIcon type="check" size={16} />
+                                  ) : (
+                                    <span>+</span>
+                                  )}
                                 </span>
                                 <span>{item.text}</span>
                               </div>
@@ -468,7 +473,16 @@ export default function LandingPage() {
                                 .botImprovedResponse && (
                                 <>
                                   <div className="improvement-label">
-                                    💡 Improved Answer:
+                                    <span
+                                      style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: "0.5rem",
+                                      }}
+                                    >
+                                      <FeatureIcon type="alert" size={20} />
+                                      <span>Improved Answer:</span>
+                                    </span>
                                   </div>
                                   <p className="improvement-text">
                                     {

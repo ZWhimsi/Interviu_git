@@ -41,20 +41,33 @@ export default function UserProfilePage() {
   const [activeTab, setActiveTab] = useState<
     "profile" | "account" | "preferences"
   >("profile");
+  const [, forceUpdate] = useState({});
+
+  // Force re-render when dark mode changes
+  useEffect(() => {
+    forceUpdate({});
+  }, [darkMode]);
 
   // Form states
   const [formData, setFormData] = useState({
     name: "",
     experience: "",
     field: "",
+    availableRoles: [] as string[],
+    currentRole: "candidate" as string,
   });
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  // Load profile data
+  // Load profile data with timeout fallback
   useEffect(() => {
     const loadProfile = async () => {
+      const timeout = setTimeout(() => {
+        console.warn("Profile loading timeout - using defaults");
+        setIsLoading(false);
+      }, 3000); // 3 second timeout
+
       try {
         const token = localStorage.getItem("authToken");
         const response = await fetch("http://localhost:5000/api/profile", {
@@ -70,11 +83,17 @@ export default function UserProfilePage() {
             name: data.data.name || "",
             experience: data.data.experience || "",
             field: data.data.field || "",
+            availableRoles: data.data.availableRoles || [],
+            currentRole: data.data.currentRole || "candidate",
           });
+        } else {
+          console.error("Profile API error:", response.status);
         }
       } catch (error) {
         console.error("Error loading profile:", error);
+        setError("Failed to load profile. Using default values.");
       } finally {
+        clearTimeout(timeout);
         setIsLoading(false);
       }
     };
@@ -133,12 +152,19 @@ export default function UserProfilePage() {
   }
 
   return (
-    <div className="settings-page">
+    <div className="settings-page" key={darkMode ? "dark" : "light"}>
       {/* Header with Navigation */}
       <div className="settings-header">
         <button
           className="back-button"
-          onClick={() => (window.location.href = "/dashboard")}
+          onClick={() => {
+            // Ensure dark mode class is preserved during navigation
+            if (darkMode) {
+              document.documentElement.classList.add("dark-mode");
+              document.body.classList.add("dark-mode");
+            }
+            window.location.href = "/dashboard";
+          }}
         >
           Dashboard
         </button>
@@ -225,6 +251,71 @@ export default function UserProfilePage() {
                     onChange={handleInputChange}
                     placeholder="e.g., Technology, Marketing, Finance"
                   />
+                </div>
+
+                {/* Role Selection */}
+                <div className="form-group">
+                  <label>Available Roles</label>
+                  <div className="role-selection">
+                    <div
+                      className={`role-option ${
+                        formData.availableRoles.includes("recruiter")
+                          ? "selected"
+                          : ""
+                      }`}
+                      onClick={() => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          availableRoles: prev.availableRoles.includes(
+                            "recruiter"
+                          )
+                            ? prev.availableRoles.filter(
+                                (r) => r !== "recruiter"
+                              )
+                            : [...prev.availableRoles, "recruiter"],
+                        }));
+                      }}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={formData.availableRoles.includes("recruiter")}
+                        onChange={() => {}}
+                      />
+                      <span>Recruiter</span>
+                    </div>
+                    <div
+                      className={`role-option ${
+                        formData.availableRoles.includes("interviewer")
+                          ? "selected"
+                          : ""
+                      }`}
+                      onClick={() => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          availableRoles: prev.availableRoles.includes(
+                            "interviewer"
+                          )
+                            ? prev.availableRoles.filter(
+                                (r) => r !== "interviewer"
+                              )
+                            : [...prev.availableRoles, "interviewer"],
+                        }));
+                      }}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={formData.availableRoles.includes(
+                          "interviewer"
+                        )}
+                        onChange={() => {}}
+                      />
+                      <span>Interviewer</span>
+                    </div>
+                  </div>
+                  <p className="role-note">
+                    Select the roles that apply to you. This determines
+                    available features.
+                  </p>
                 </div>
 
                 <button

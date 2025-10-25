@@ -1,0 +1,59 @@
+/* Page Skeleton Loader */
+.page-skeleton {
+  min-height: 100vh;
+  padding: 2rem;
+  background: #f8fafc;
+  animation: fadeIn 0.3s ease;
+}
+
+body.dark-mode .page-skeleton {
+  background: #01091e;
+}
+
+.skeleton-header {
+  height: 60px;
+  background: linear-gradient(90deg, #e2e8f0 25%, #f8fafc 50%, #e2e8f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.skeleton-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.skeleton-line {
+  height: 20px;
+  background: linear-gradient(90deg, #e2e8f0 25%, #f8fafc 50%, #e2e8f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.skeleton-line.short {
+  width: 60%;
+}
+
+.skeleton-line.medium {
+  width: 80%;
+}
+
+body.dark-mode .skeleton-header,
+body.dark-mode .skeleton-line {
+  background: linear-gradient(90deg, #070b54 25%, #01091e 50%, #070b54 75%);
+  background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+

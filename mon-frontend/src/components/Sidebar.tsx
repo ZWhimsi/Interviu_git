@@ -1,4 +1,5 @@
 import { useState } from "react";
+import FeatureIcon from "./FeatureIcon";
 import "./Sidebar.css";
 
 interface SidebarProps {
@@ -8,6 +9,7 @@ interface SidebarProps {
   activeInterview: string | null;
   currentRole: string;
   availableRoles: string[];
+  isChangingRole?: boolean;
   onInterviewSelect: (id: string) => void;
   onNewInterview: () => void;
   onRoleChange: (role: string) => void;
@@ -23,6 +25,7 @@ export default function Sidebar({
   activeInterview,
   currentRole,
   availableRoles,
+  isChangingRole = false,
   onInterviewSelect,
   onNewInterview,
   onRoleChange,
@@ -56,10 +59,21 @@ export default function Sidebar({
             {availableRoles.map((role) => (
               <button
                 key={role}
-                className={`role-btn ${currentRole === role ? "active" : ""}`}
+                className={`role-btn ${currentRole === role ? "active" : ""} ${
+                  isChangingRole ? "loading" : ""
+                }`}
                 onClick={() => onRoleChange(role)}
+                disabled={isChangingRole}
               >
-                {role.charAt(0).toUpperCase() + role.slice(1)}
+                {isChangingRole && currentRole === role ? (
+                  <span className="loading-dots">
+                    <span>.</span>
+                    <span>.</span>
+                    <span>.</span>
+                  </span>
+                ) : (
+                  role.charAt(0).toUpperCase() + role.slice(1)
+                )}
               </button>
             ))}
           </div>
@@ -78,7 +92,9 @@ export default function Sidebar({
                 }`}
                 onClick={() => onInterviewSelect(interview.id)}
               >
-                <span className="interview-icon">💼</span>
+                <span className="interview-icon">
+                  <FeatureIcon type="briefcase" size={16} />
+                </span>
                 <div className="interview-info">
                   <span className="interview-title">{interview.title}</span>
                   <span className="interview-date">{interview.date}</span>
@@ -113,15 +129,21 @@ export default function Sidebar({
         {showUserMenu && (
           <div className="user-dropdown">
             <button className="dropdown-item" onClick={onHome}>
-              <span className="dropdown-icon">🏠</span>
+              <span className="dropdown-icon">
+                <FeatureIcon type="home" size={16} />
+              </span>
               <span>Home</span>
             </button>
             <button className="dropdown-item" onClick={onSettings}>
-              <span className="dropdown-icon">⚙️</span>
+              <span className="dropdown-icon">
+                <FeatureIcon type="settings" size={16} />
+              </span>
               <span>Settings</span>
             </button>
             <button className="dropdown-item logout" onClick={onLogout}>
-              <span className="dropdown-icon">🚪</span>
+              <span className="dropdown-icon">
+                <FeatureIcon type="logout" size={16} />
+              </span>
               <span>Logout</span>
             </button>
           </div>
@@ -130,5 +152,3 @@ export default function Sidebar({
     </aside>
   );
 }
-
-

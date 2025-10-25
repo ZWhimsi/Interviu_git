@@ -29,7 +29,7 @@ export default function TermsPage() {
       </div>
 
       <div className="legal-content">
-        <section>
+        <section className="legal-section">
           <h2>1. Acceptance of Terms</h2>
           <p>
             By accessing and using InterviU, you accept and agree to be bound by
@@ -38,7 +38,7 @@ export default function TermsPage() {
           </p>
         </section>
 
-        <section>
+        <section className="legal-section">
           <h2>2. User Accounts</h2>
           <p>You are responsible for:</p>
           <ul>
@@ -48,7 +48,7 @@ export default function TermsPage() {
           </ul>
         </section>
 
-        <section>
+        <section className="legal-section">
           <h2>3. Acceptable Use</h2>
           <p>You agree not to:</p>
           <ul>
@@ -60,7 +60,7 @@ export default function TermsPage() {
           </ul>
         </section>
 
-        <section>
+        <section className="legal-section">
           <h2>4. Intellectual Property</h2>
           <p>
             All content, features, and functionality of InterviU are owned by us
@@ -69,7 +69,7 @@ export default function TermsPage() {
           </p>
         </section>
 
-        <section>
+        <section className="legal-section">
           <h2>5. Subscription & Payment</h2>
           <ul>
             <li>Subscriptions renew automatically unless cancelled</li>
@@ -78,7 +78,7 @@ export default function TermsPage() {
           </ul>
         </section>
 
-        <section>
+        <section className="legal-section">
           <h2>6. Limitation of Liability</h2>
           <p>
             InterviU is provided "as is" without warranties. We are not liable
@@ -87,7 +87,7 @@ export default function TermsPage() {
           </p>
         </section>
 
-        <section>
+        <section className="legal-section">
           <h2>7. Termination</h2>
           <p>
             We reserve the right to terminate or suspend access to our services
@@ -96,7 +96,7 @@ export default function TermsPage() {
           </p>
         </section>
 
-        <section>
+        <section className="legal-section">
           <h2>8. Changes to Terms</h2>
           <p>
             We may modify these terms at any time. Continued use of InterviU
@@ -104,7 +104,7 @@ export default function TermsPage() {
           </p>
         </section>
 
-        <section>
+        <section className="legal-section">
           <h2>9. Contact</h2>
           <p>
             For questions about these Terms, contact us at:{" "}
@@ -117,4 +117,3 @@ export default function TermsPage() {
     </div>
   );
 }
-

@@ -5,6 +5,7 @@ import {
   useEffect,
   ReactNode,
 } from "react";
+import { isPrivatePage } from "../config/privatePages";
 
 interface DarkModeContextProps {
   darkMode: boolean;
@@ -37,29 +38,61 @@ export function DarkModeProvider({ children }: { children: ReactNode }) {
     return false;
   });
 
-  // Apply dark mode changes
+  // Apply dark mode changes with immediate effect
   useEffect(() => {
+    // Only apply dark mode on private pages
+    if (!isPrivatePage()) {
+      // Remove any dark mode classes on public pages
+      document.body.classList.remove("dark-mode");
+      document.documentElement.classList.remove("dark-mode");
+      return;
+    }
+
     // Debug
     console.log("Dark mode state changed:", darkMode);
+
+    // Immediately update without transition for instant feedback
+    document.body.style.transition = "none";
+
+    // Remove all transitions temporarily
+    const allElements = document.querySelectorAll("*");
+    allElements.forEach((el) => {
+      if (el instanceof HTMLElement) {
+        el.style.transition = "none";
+      }
+    });
 
     // Apply class to body element ONLY (not html)
     // This way we can control which pages get dark mode
     if (darkMode) {
       document.body.classList.add("dark-mode");
+      document.documentElement.style.backgroundColor = "#01091e";
+      document.body.style.backgroundColor = "#01091e";
     } else {
       document.body.classList.remove("dark-mode");
+      document.documentElement.style.backgroundColor = "#f8fafc";
+      document.body.style.backgroundColor = "#f8fafc";
     }
 
     // Save to localStorage
     localStorage.setItem("darkMode", String(darkMode));
 
-    // Apply transition class for smooth theme changes
-    document.body.classList.add("theme-transition");
-    const timer = setTimeout(() => {
-      document.body.classList.remove("theme-transition");
-    }, 400);
+    // Force multiple reflows to ensure immediate update
+    void document.body.offsetHeight;
+    void document.documentElement.offsetHeight;
 
-    return () => clearTimeout(timer);
+    // Re-enable transitions after a brief delay
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.body.style.transition = "background-color 0.2s ease";
+        // Re-enable transitions for all elements
+        allElements.forEach((el) => {
+          if (el instanceof HTMLElement) {
+            el.style.transition = "";
+          }
+        });
+      });
+    });
   }, [darkMode]);
 
   // Toggle function

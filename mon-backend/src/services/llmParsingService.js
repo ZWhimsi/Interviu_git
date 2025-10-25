@@ -35,24 +35,26 @@ async function parseCVWithLLM(cvText) {
 CV TEXT:
 ${cvText.substring(0, MAX_CV_LENGTH)}
 
-Extract the following sections and return ONLY valid JSON:
+Extract the following sections and return ONLY valid JSON with STRING values (not objects or arrays):
 
 {
-  "hardSkills": "List ALL technical skills, tools, technologies, programming languages, frameworks, certifications",
-  "softSkills": "List ALL soft skills like leadership, communication, teamwork (look for action verbs: led, managed, coordinated, mentored, etc.)",
-  "education": "List degrees, universities, graduation dates, relevant coursework",
-  "experience": "List job titles, companies, dates, key responsibilities and achievements",
-  "summary": "Professional summary or career objective if present"
+  "hardSkills": "Comma-separated list of ALL technical skills, tools, technologies, programming languages, frameworks, certifications as a single string",
+  "softSkills": "Comma-separated list of ALL soft skills like leadership, communication, teamwork (look for action verbs: led, managed, coordinated, mentored, etc.) as a single string",
+  "education": "Comma-separated list of degrees, universities, graduation dates, relevant coursework as a single string",
+  "experience": "Comma-separated list of job titles, companies, dates, key responsibilities and achievements as a single string",
+  "summary": "Professional summary or career objective if present as a single string"
 }
 
-IMPORTANT:
+CRITICAL REQUIREMENTS:
+- Return ONLY STRING values, never objects or arrays
+- Use comma-separated format for lists
 - Be comprehensive - include ALL relevant information
 - For softSkills, look for action verbs and leadership indicators
 - For hardSkills, include every technical term mentioned
 - Keep original phrasing when possible
 - If a section is missing, use empty string ""
 
-Return ONLY the JSON object, no other text.`;
+Return ONLY the JSON object with string values, no other text.`;
 
     const response = await openai.chat.completions.create({
       model: LLM_MODEL,
@@ -103,23 +105,25 @@ async function parseJobWithLLM(jobText) {
 JOB DESCRIPTION:
 ${jobText.substring(0, MAX_JOB_LENGTH)}
 
-Extract the following and return ONLY valid JSON:
+Extract the following and return ONLY valid JSON with STRING values (not objects or arrays):
 
 {
-  "hardSkills": "ALL technical requirements: tools, technologies, languages, frameworks",
-  "softSkills": "ALL soft skills required: leadership, communication, teamwork, problem-solving",
-  "experience": "Required years of experience and type of experience needed",
-  "education": "Educational requirements: degree level, field of study",
-  "responsibilities": "Key responsibilities of the role"
+  "hardSkills": "Comma-separated list of ALL technical requirements: tools, technologies, languages, frameworks as a single string",
+  "softSkills": "Comma-separated list of ALL soft skills required: leadership, communication, teamwork, problem-solving as a single string",
+  "experience": "Required years of experience and type of experience needed as a single string",
+  "education": "Educational requirements: degree level, field of study as a single string",
+  "responsibilities": "Key responsibilities of the role as a single string"
 }
 
-IMPORTANT:
+CRITICAL REQUIREMENTS:
+- Return ONLY STRING values, never objects or arrays
+- Use comma-separated format for lists
 - Extract EVERY technical requirement mentioned
 - Include specific years of experience if stated
 - Be comprehensive
 - If section missing, use empty string ""
 
-Return ONLY the JSON object.`;
+Return ONLY the JSON object with string values, no other text.`;
 
     const response = await openai.chat.completions.create({
       model: LLM_MODEL,
@@ -175,4 +179,3 @@ module.exports = {
   parseCVWithLLM,
   parseJobWithLLM,
 };
-

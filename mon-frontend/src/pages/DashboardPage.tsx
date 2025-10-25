@@ -18,6 +18,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import Sidebar from "../components/Sidebar";
+import FeatureIcon from "../components/FeatureIcon";
 import "./DashboardPage.css";
 
 // ============================================================================
@@ -56,6 +57,7 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [activeInterview, setActiveInterview] = useState<string | null>(null);
   const [currentRole, setCurrentRole] = useState<string>("");
+  const [isChangingRole, setIsChangingRole] = useState(false);
 
   // Mock interviews (replace with real API later)
   const [interviews] = useState<Interview[]>([
@@ -77,12 +79,25 @@ export default function DashboardPage() {
 
         if (response.ok) {
           const data = await response.json();
-          setProfile(data.data);
-          setCurrentRole(
-            data.data.currentRole ||
-              data.data.availableRoles[0] ||
-              "interviewer"
-          );
+          const profileData = data.data;
+
+          // Ensure availableRoles has a default value
+          if (
+            !profileData.availableRoles ||
+            profileData.availableRoles.length === 0
+          ) {
+            profileData.availableRoles = ["interviewer"];
+          }
+
+          setProfile(profileData);
+          const roleToSet =
+            profileData.currentRole ||
+            profileData.availableRoles[0] ||
+            "interviewer";
+          setCurrentRole(roleToSet);
+
+          console.log("Profile loaded with roles:", profileData.availableRoles);
+          console.log("Initial role set to:", roleToSet);
         }
       } catch (error) {
         console.error("Error loading profile:", error);
@@ -95,22 +110,55 @@ export default function DashboardPage() {
   }, []);
 
   const handleRoleChange = async (newRole: string) => {
+    // Don't process if already changing or same role
+    if (isChangingRole || newRole === currentRole) {
+      console.log(
+        "Role change skipped:",
+        isChangingRole ? "already changing" : "same role"
+      );
+      return;
+    }
+
+    console.log("Role change requested:", newRole);
+
+    // Store previous role for potential revert
+    const previousRole = currentRole;
+
+    // Set loading state and update UI
+    setIsChangingRole(true);
+    setCurrentRole(newRole);
+
     try {
       const token = localStorage.getItem("authToken");
-      const response = await fetch("http://localhost:5000/api/profile/role", {
+      const response = await fetch("http://localhost:5000/api/profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ currentRole: newRole }),
+        body: JSON.stringify({
+          currentRole: newRole,
+          availableRoles: profile?.availableRoles || [newRole],
+        }),
       });
 
-      if (response.ok) {
-        setCurrentRole(newRole);
+      if (!response.ok) {
+        // Revert on error
+        console.error("Failed to update role:", response.status);
+        setCurrentRole(previousRole); // Revert to previous role
+      } else {
+        console.log("Role updated successfully to:", newRole);
+        // Update profile with new role
+        if (profile) {
+          setProfile({ ...profile, currentRole: newRole });
+        }
       }
     } catch (error) {
       console.error("Error updating role:", error);
+      // Revert on error
+      setCurrentRole(previousRole);
+    } finally {
+      setIsChangingRole(false);
     }
   };
 
@@ -132,9 +180,10 @@ export default function DashboardPage() {
     alert("Interview simulator coming soon!");
   };
 
-  const features = [
+  // Feature cards - Dynamic based on role
+  const interviewerFeatures = [
     {
-      icon: "🎯",
+      iconType: "target" as const,
       title: "Start Practice Interview",
       description:
         "Practice with AI-powered interview questions tailored to your target role",
@@ -142,7 +191,7 @@ export default function DashboardPage() {
       buttonText: "Start Now",
     },
     {
-      icon: "📄",
+      iconType: "document" as const,
       title: "Analyze Your CV",
       description:
         "Get instant compatibility scores and optimization suggestions",
@@ -150,14 +199,14 @@ export default function DashboardPage() {
       buttonText: "Analyze CV",
     },
     {
-      icon: "📊",
+      iconType: "chart" as const,
       title: "View Your Progress",
       description: "Track your interview performance and improvement over time",
       action: () => alert("Progress dashboard coming soon!"),
       buttonText: "View Stats",
     },
     {
-      icon: "🎓",
+      iconType: "book" as const,
       title: "Learning Resources",
       description:
         "Access curated courses and materials to improve your skills",
@@ -165,6 +214,49 @@ export default function DashboardPage() {
       buttonText: "Explore",
     },
   ];
+
+  const recruiterFeatures = [
+    {
+      iconType: "search" as const,
+      title: "Candidate Search",
+      description:
+        "Find and filter candidates based on skills, experience, and cultural fit",
+      action: () => alert("Candidate search coming soon!"),
+      buttonText: "Search",
+    },
+    {
+      iconType: "document" as const,
+      title: "CV Database",
+      description:
+        "Access and manage your organization's talent pool and applications",
+      action: () => alert("CV database coming soon!"),
+      buttonText: "Browse",
+    },
+    {
+      iconType: "user" as const,
+      title: "Interview Templates",
+      description:
+        "Create and manage standardized interview questions and assessments",
+      action: () => alert("Interview templates coming soon!"),
+      buttonText: "Manage",
+    },
+    {
+      iconType: "chart" as const,
+      title: "Recruitment Analytics",
+      description:
+        "Track hiring metrics, pipeline health, and team performance",
+      action: () => alert("Recruitment analytics coming soon!"),
+      buttonText: "View Reports",
+    },
+  ];
+
+  // Select features based on current role
+  const features =
+    currentRole === "recruiter" ? recruiterFeatures : interviewerFeatures;
+
+  // Debug log to verify feature switching
+  console.log("Current role:", currentRole);
+  console.log("Features count:", features.length);
 
   if (isLoading) {
     return (
@@ -199,6 +291,7 @@ export default function DashboardPage() {
         activeInterview={activeInterview}
         currentRole={currentRole}
         availableRoles={profile.availableRoles}
+        isChangingRole={isChangingRole}
         onInterviewSelect={setActiveInterview}
         onNewInterview={startNewInterview}
         onRoleChange={handleRoleChange}
@@ -228,18 +321,36 @@ export default function DashboardPage() {
               Welcome back, {profile.name.split(" ")[0]}!
             </h1>
             <p className="welcome-subtitle">
-              Ready to ace your next interview? Choose an action below to get
-              started.
+              {currentRole === "recruiter"
+                ? "Ready to find your next top talent? Choose an action below to get started."
+                : "Ready to ace your next interview? Choose an action below to get started."}
             </p>
+            {profile.availableRoles.length > 1 && (
+              <p className="role-indicator">
+                Currently viewing as:{" "}
+                <strong>
+                  {currentRole.charAt(0).toUpperCase() + currentRole.slice(1)}
+                </strong>
+              </p>
+            )}
 
-            <div className="dashboard-features-grid">
+            <div
+              className="dashboard-features-grid"
+              key={`features-${currentRole}`}
+            >
               {features.map((feature, index) => (
                 <div
-                  key={index}
+                  key={`${currentRole}-${index}`}
                   className="dashboard-feature-card"
                   onClick={feature.action}
                 >
-                  <div className="dashboard-feature-icon">{feature.icon}</div>
+                  <div className="dashboard-feature-icon">
+                    <FeatureIcon
+                      type={feature.iconType}
+                      size={32}
+                      color="white"
+                    />
+                  </div>
                   <h3 className="dashboard-feature-title">{feature.title}</h3>
                   <p className="dashboard-feature-description">
                     {feature.description}

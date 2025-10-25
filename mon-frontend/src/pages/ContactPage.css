@@ -65,8 +65,20 @@
   border-radius: 12px;
 }
 
+/* Method icon - SVG support with gradient */
 .method-icon {
-  font-size: 2rem;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #5639fe 0%, #66e8fd 50%, #5e91fe 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(86, 57, 254, 0.25);
+}
+
+.method-icon svg {
+  color: white;
 }
 
 .contact-method h4 {
@@ -123,28 +135,8 @@
   box-shadow: 0 0 0 4px rgba(86, 57, 254, 0.1);
 }
 
-.submit-btn {
-  width: 100%;
-  padding: 1rem;
-  background: linear-gradient(135deg, #5639fe, #66e8fd);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.submit-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(86, 57, 254, 0.3);
-}
-
-.submit-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
+/* Contact form button - Now using modular button system from index.css */
+/* Classes: .btn .btn--gradient .btn--full .btn--loading */
 
 /* Submit Status Messages */
 .submit-message {
@@ -205,4 +197,3 @@ textarea.error:focus {
     gap: 2rem;
   }
 }
-

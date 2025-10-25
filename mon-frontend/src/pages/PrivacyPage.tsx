@@ -29,7 +29,7 @@ export default function PrivacyPage() {
       </div>
 
       <div className="legal-content">
-        <section>
+        <section className="legal-section">
           <h2>1. Information We Collect</h2>
           <p>We collect information you provide directly to us, including:</p>
           <ul>
@@ -40,7 +40,7 @@ export default function PrivacyPage() {
           </ul>
         </section>
 
-        <section>
+        <section className="legal-section">
           <h2>2. How We Use Your Information</h2>
           <p>We use the information we collect to:</p>
           <ul>
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
           </ul>
         </section>
 
-        <section>
+        <section className="legal-section">
           <h2>3. Data Protection & GDPR Compliance</h2>
           <p>
             We are committed to protecting your data in accordance with GDPR and
@@ -77,7 +77,7 @@ export default function PrivacyPage() {
           </ul>
         </section>
 
-        <section>
+        <section className="legal-section">
           <h2>4. Data Sharing</h2>
           <p>We do not sell your personal data. We may share data with:</p>
           <ul>
@@ -86,7 +86,7 @@ export default function PrivacyPage() {
           </ul>
         </section>
 
-        <section>
+        <section className="legal-section">
           <h2>5. Cookies & Tracking</h2>
           <p>
             We use essential cookies for platform functionality and analytics
@@ -94,7 +94,7 @@ export default function PrivacyPage() {
           </p>
         </section>
 
-        <section>
+        <section className="legal-section">
           <h2>6. Contact Us</h2>
           <p>
             For privacy-related questions, contact us at:{" "}
@@ -107,4 +107,3 @@ export default function PrivacyPage() {
     </div>
   );
 }
-

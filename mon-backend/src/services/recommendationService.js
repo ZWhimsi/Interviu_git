@@ -35,27 +35,35 @@ async function generateIntelligentRecommendations(
   jobSections,
   scores,
   strengths,
-  weaknesses
+  weaknesses,
+  cvText = "",
+  jobDescription = ""
 ) {
   try {
-    const prompt = `You are a CV optimization expert. Compare what the job REQUIRES vs what the CV HAS.
+    const prompt = `You are a CV optimization expert. Compare the ACTUAL CV content with the job requirements. Identify REAL gaps.
 
-JOB REQUIRES:
+ACTUAL CV CONTENT:
+${cvText.substring(0, 2000)}
+
+JOB REQUIREMENTS:
+${jobDescription.substring(0, 2000)}
+
+EXTRACTED CV KEYWORDS (validated):
+Hard Skills: ${cvSections.hardSkills?.join(", ") || "None found"}
+Soft Skills: ${cvSections.softSkills?.join(", ") || "None found"}
+Experience: ${cvSections.experience?.join(", ") || "None found"}
+Education: ${cvSections.education?.join(", ") || "None found"}
+
+EXTRACTED JOB KEYWORDS:
 Hard Skills: ${jobSections.hardSkills?.join(", ") || "Not specified"}
 Soft Skills: ${jobSections.softSkills?.join(", ") || "Not specified"}
 Experience: ${jobSections.experience?.join(", ") || "Not specified"}
 Education: ${jobSections.education?.join(", ") || "Not specified"}
 
-CV CURRENTLY HAS:
-Hard Skills: ${cvSections.hardSkills?.join(", ") || "None listed"}
-Soft Skills: ${cvSections.softSkills?.join(", ") || "None listed"}
-Experience: ${cvSections.experience?.join(", ") || "None listed"}
-Education: ${cvSections.education?.join(", ") || "None listed"}
-
-CRITICAL: Only suggest adding things that are MISSING from the CV!
-- If CV has "C++" and job wants "C++", DON'T suggest adding it again
-- If CV has "problem-solving" don't suggest "add problem-solving"
-- Look for GAPS: what job requires that CV doesn't mention
+CRITICAL: Only suggest adding things that are:
+1. Actually required by the job
+2. Actually missing from the CV
+3. Realistically achievable
 
 SCORES:
 - Hard Skills: ${scores.hardSkills}% ${
@@ -72,10 +80,10 @@ SCORES:
     }
 - Overall: ${scores.overall}%
 
-Generate 5-7 recommendations for MISSING elements or IMPROVEMENTS:
+Generate 3-5 specific, actionable recommendations for REAL gaps only:
 
 ONLY suggest:
-1. Skills job requires that CV doesn't have
+1. Skills job requires that CV doesn't have (based on actual CV content)
 2. Ways to REPHRASE existing content to match job language
 3. QUANTIFICATION of existing achievements
 4. Specific gaps in requirements vs CV

@@ -387,7 +387,9 @@ export default function SignUpPage() {
 
             <button
               type="submit"
-              className={`signup-button ${isLoading ? "loading" : ""}`}
+              className={`btn btn--gradient btn--full btn--mt ${
+                isLoading ? "btn--loading" : ""
+              }`}
               disabled={isLoading || !agreedToTerms}
             >
               {isLoading ? "Creating Account..." : "Sign Up"}

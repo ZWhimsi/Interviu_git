@@ -20,6 +20,35 @@ html,
 body {
   margin: 0;
   padding: 0;
+  background: #f8fafc; /* Prevent white flash on page transitions */
+  transition: background-color 0.2s ease;
+  min-height: 100vh;
+}
+
+/* Dark mode global background */
+body.dark-mode {
+  background: #01091e;
+}
+
+/* Anti-flash: ensure root element always has background */
+#root {
+  min-height: 100vh;
+  background: inherit;
+  transition: opacity 0.15s ease;
+}
+
+/* Smooth transitions for all page containers */
+[class$="-page"] {
+  animation: fadeIn 0.15s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.95;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 :root {
@@ -73,7 +102,107 @@ h1 {
   line-height: 1.1;
 }
 
+/* ========================================
+   Button System - Modular Architecture
+   ======================================== */
+
+/* Base button reset - minimal and non-invasive */
 button {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+
+/* Utility classes for buttons - following BEM methodology */
+.btn {
+  /* Base button properties */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1.5rem;
+  border-radius: 0.625rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Button variants using modifier classes */
+.btn--gradient {
+  background: linear-gradient(135deg, #5639fe 0%, #66e8fd 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(86, 57, 254, 0.2);
+}
+
+.btn--gradient:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(86, 57, 254, 0.25);
+}
+
+.btn--gradient:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(86, 57, 254, 0.2);
+}
+
+/* Size modifiers */
+.btn--full {
+  width: 100%;
+}
+
+/* Spacing modifiers */
+.btn--mt {
+  margin-top: 1rem;
+}
+
+/* State modifiers */
+.btn--loading {
+  color: transparent;
+  pointer-events: none;
+}
+
+.btn--loading::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Gradient animation for loading state */
+.btn--gradient.btn--loading {
+  background-size: 200% 100%;
+  animation: gradient-shift 2s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Default button styles - use .default-button class for generic buttons */
+.default-button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -84,11 +213,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
+.default-button:hover {
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible {
+.default-button:focus,
+.default-button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
@@ -100,7 +229,7 @@ button:focus-visible {
   a:hover {
     color: #747bff;
   }
-  button {
+  .default-button {
     background-color: #f9f9f9;
   }
 }

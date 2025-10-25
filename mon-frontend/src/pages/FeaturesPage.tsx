@@ -17,6 +17,7 @@
 import { useState } from "react";
 import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
+import FeatureIcon from "../components/FeatureIcon";
 import "../components/Footer.css";
 import "../components/PageHeader.css";
 import "./FeaturesPage.css";
@@ -162,7 +163,9 @@ export default function FeaturesPage() {
             <div className="feature-benefits">
               {feature.benefits.map((benefit, idx) => (
                 <div key={idx} className="benefit-item">
-                  <span className="benefit-check">✓</span>
+                  <span className="benefit-check">
+                    <FeatureIcon type="check" size={16} />
+                  </span>
                   <span>{benefit}</span>
                 </div>
               ))}
@@ -180,7 +183,9 @@ export default function FeaturesPage() {
               organizations.
             </p>
             <div className="coming-soon-card">
-              <div className="coming-soon-icon">🎓</div>
+              <div className="coming-soon-icon">
+                <FeatureIcon type="trophy" size={64} />
+              </div>
               <h3>1-on-1 Expert Coaching</h3>
               <p>
                 Book sessions with experienced interviewers from Google, Amazon,
@@ -196,4 +201,3 @@ export default function FeaturesPage() {
     </div>
   );
 }
-

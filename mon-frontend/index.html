@@ -11,6 +11,107 @@
         history.scrollRestoration = "manual";
       }
       window.scrollTo(0, 0);
+
+      // Apply dark mode immediately to prevent flash
+      try {
+        var isDarkMode = localStorage.getItem("darkMode") === "true";
+
+        // Define private pages that should respect dark mode
+        // IMPORTANT: Keep in sync with src/config/privatePages.ts
+        var privatePages = [
+          "/dashboard",
+          "/user-profile",
+          "/cv-analysis",
+          "/profile",
+        ];
+        var currentPath = window.location.pathname;
+        var isPrivatePage = privatePages.some(function (page) {
+          return currentPath.includes(page);
+        });
+
+        if (isDarkMode && isPrivatePage) {
+          document.documentElement.classList.add("dark-mode");
+          document.body.classList.add("dark-mode");
+          // Set background colors immediately for private pages
+          document.documentElement.style.backgroundColor = "#01091e";
+          document.body.style.backgroundColor = "#01091e";
+        } else {
+          // Public pages always use light theme
+          document.documentElement.style.backgroundColor = "#f8fafc";
+          document.body.style.backgroundColor = "#f8fafc";
+        }
+
+        // Check if this is a navigation (page already visited)
+        if (sessionStorage.getItem("hasNavigated")) {
+          document.body.classList.add("navigating");
+        }
+        // Mark that we've navigated at least once
+        sessionStorage.setItem("hasNavigated", "true");
+      } catch (e) {}
+    </script>
+    <style>
+      /* Critical CSS to prevent flash - MUST load before JS */
+      html {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: #f8fafc;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: #f8fafc;
+        transition: none !important; /* Disable transition on initial load */
+      }
+      body.dark-mode {
+        background: #01091e !important;
+      }
+      #root {
+        min-height: 100vh;
+        background: inherit;
+      }
+      /* Hide ONLY root content until styles load - keep background visible */
+      /* But only on first load, not on navigation */
+      body:not(.navigating) #root:not(.loaded) {
+        opacity: 0;
+      }
+      body {
+        background: #f8fafc;
+      }
+      /* Dark mode ONLY applies to private pages */
+      body.dark-mode {
+        background: #01091e;
+      }
+      /* Specific private page containers */
+      body.dark-mode .dashboard-page {
+        background: #01091e !important;
+      }
+      body.dark-mode .settings-page {
+        background: #01091e !important;
+      }
+      body.dark-mode .cv-analysis-page {
+        background: #01091e !important;
+      }
+      body.dark-mode .profile-page {
+        background: #01091e !important;
+      }
+    </style>
+    <script>
+      // Mark body as loaded after DOMContentLoaded
+      document.addEventListener("DOMContentLoaded", function () {
+        const root = document.getElementById("root");
+        // Small delay to ensure React has rendered
+        setTimeout(function () {
+          if (root) {
+            root.classList.add("loaded");
+            root.style.transition = "opacity 0.15s ease";
+            root.style.opacity = "1";
+          }
+          // Re-enable body transitions
+          document.body.style.transition = "background-color 0.2s ease";
+        }, 50);
+      });
     </script>
   </head>
   <body>

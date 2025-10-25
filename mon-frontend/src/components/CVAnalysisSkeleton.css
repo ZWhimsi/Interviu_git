@@ -1,0 +1,358 @@
+/* CV Analysis Skeleton Loading Styles */
+.analysis-skeleton {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: transparent;
+}
+
+.skeleton-header {
+  margin-bottom: 2rem;
+}
+
+.skeleton-title {
+  height: 2rem;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  width: 60%;
+}
+
+.skeleton-subtitle {
+  height: 1.2rem;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 6px;
+  width: 40%;
+}
+
+.skeleton-section {
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .skeleton-section {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Ensure skeleton doesn't interfere with page layout */
+.analysis-skeleton {
+  position: relative;
+  z-index: 1;
+}
+
+.skeleton-section-title {
+  height: 1.5rem;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  width: 30%;
+}
+
+/* ATS Score Skeleton */
+.skeleton-ats-score {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.skeleton-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+.skeleton-ats-info {
+  flex: 1;
+}
+
+.skeleton-ats-text {
+  height: 1.2rem;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-ats-text.short {
+  width: 60%;
+}
+
+/* Scores Grid Skeleton */
+.skeleton-scores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.skeleton-score-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  background: rgba(86, 57, 254, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(86, 57, 254, 0.1);
+}
+
+body.dark-mode .skeleton-score-card {
+  background: rgba(86, 57, 254, 0.1);
+  border-color: rgba(86, 57, 254, 0.2);
+}
+
+.skeleton-score-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  margin-bottom: 1rem;
+}
+
+.skeleton-score-label {
+  height: 1rem;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  width: 80%;
+}
+
+.skeleton-score-value {
+  height: 1.5rem;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 6px;
+  width: 40%;
+}
+
+/* Strengths & Weaknesses Skeleton */
+.skeleton-strengths-weaknesses {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.skeleton-strengths,
+.skeleton-weaknesses {
+  padding: 1rem;
+  background: rgba(86, 57, 254, 0.03);
+  border-radius: 8px;
+}
+
+body.dark-mode .skeleton-strengths,
+body.dark-mode .skeleton-weaknesses {
+  background: rgba(86, 57, 254, 0.05);
+}
+
+.skeleton-list-item {
+  height: 1rem;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-list-item:nth-child(2) {
+  width: 90%;
+}
+.skeleton-list-item:nth-child(3) {
+  width: 75%;
+}
+.skeleton-list-item:nth-child(4) {
+  width: 85%;
+}
+
+/* Recommendations Skeleton */
+.skeleton-recommendations {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skeleton-recommendation-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(86, 57, 254, 0.03);
+  border-radius: 8px;
+  border-left: 3px solid rgba(86, 57, 254, 0.3);
+}
+
+body.dark-mode .skeleton-recommendation-item {
+  background: rgba(86, 57, 254, 0.05);
+  border-left-color: rgba(86, 57, 254, 0.5);
+}
+
+.skeleton-recommendation-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.skeleton-recommendation-text {
+  flex: 1;
+  height: 1.2rem;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-recommendation-text:nth-child(2) {
+  width: 95%;
+}
+.skeleton-recommendation-text:nth-child(3) {
+  width: 80%;
+}
+.skeleton-recommendation-text:nth-child(4) {
+  width: 90%;
+}
+.skeleton-recommendation-text:nth-child(5) {
+  width: 85%;
+}
+
+/* Term Analysis Skeleton */
+.skeleton-term-analysis {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.skeleton-term-item {
+  padding: 1.5rem;
+  background: rgba(86, 57, 254, 0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(86, 57, 254, 0.1);
+}
+
+body.dark-mode .skeleton-term-item {
+  background: rgba(86, 57, 254, 0.05);
+  border-color: rgba(86, 57, 254, 0.2);
+}
+
+.skeleton-term-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.skeleton-term-name {
+  height: 1.2rem;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 6px;
+  width: 30%;
+}
+
+.skeleton-term-score {
+  height: 1.5rem;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 6px;
+  width: 60px;
+}
+
+.skeleton-term-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skeleton-suggestion {
+  height: 1rem;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-suggestion:nth-child(1) {
+  width: 90%;
+}
+.skeleton-suggestion:nth-child(2) {
+  width: 75%;
+}
+
+/* Animation */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Enhanced shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Apply shimmer to all skeleton elements */
+.analysis-skeleton .shimmer {
+  animation: shimmer 1.5s infinite;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+}
+
+/* Dark mode shimmer */
+body.dark-mode .analysis-skeleton .shimmer {
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .analysis-skeleton {
+    padding: 1rem;
+  }
+
+  .skeleton-scores-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skeleton-strengths-weaknesses {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .skeleton-ats-score {
+    flex-direction: column;
+    text-align: center;
+  }
+}

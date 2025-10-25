@@ -1,9 +1,11 @@
 /* CV Analysis Page - Clean & Modern */
+/* CV Analysis Page - Anti-flash optimization */
 .cv-analysis-page {
   display: flex;
   height: 100vh;
   background: #f8fafc;
   font-family: "Poppins", sans-serif;
+  will-change: background-color; /* Hint browser for smooth transition */
 }
 
 body.dark-mode .cv-analysis-page {
@@ -19,6 +21,10 @@ body.dark-mode .cv-analysis-page {
 
 .cv-analysis-main::-webkit-scrollbar {
   display: none;
+}
+
+body.dark-mode .cv-analysis-main {
+  background: #01091e;
 }
 
 .analysis-container {
@@ -155,8 +161,24 @@ body.dark-mode .file-upload-label:hover {
 }
 
 .upload-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  background: linear-gradient(135deg, #5639fe 0%, #66e8fd 50%, #5e91fe 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(86, 57, 254, 0.3);
+}
+
+.upload-icon svg {
+  color: white !important;
+}
+
+.upload-icon svg * {
+  stroke: white !important;
+  fill: white !important;
 }
 
 .file-upload-label p {
@@ -282,6 +304,119 @@ body.dark-mode .job-description-input {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Skeleton Loading - Professional shimmer effect */
+.analysis-skeleton {
+  margin-top: 3rem;
+  padding: 2.5rem;
+  background: white;
+  border-radius: 20px;
+  border: 2px solid #e2e8f0;
+}
+
+body.dark-mode .analysis-skeleton {
+  background: #070b54;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.skeleton-ats {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+body.dark-mode .skeleton-ats {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.skeleton-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #e2e8f0;
+}
+
+body.dark-mode .skeleton-circle {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.skeleton-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skeleton-line {
+  height: 16px;
+  background: #e2e8f0;
+  border-radius: 8px;
+}
+
+.skeleton-line.short {
+  width: 60%;
+}
+
+body.dark-mode .skeleton-line {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.skeleton-scores-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.skeleton-score {
+  height: 100px;
+  background: #e2e8f0;
+  border-radius: 12px;
+}
+
+body.dark-mode .skeleton-score {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Shimmer animation - Facebook/LinkedIn style */
+.shimmer {
+  background: linear-gradient(90deg, #e2e8f0 0%, #f8fafc 50%, #e2e8f0 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+body.dark-mode .shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.analysis-progress {
+  text-align: center;
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-top: 1.5rem;
+}
+
+body.dark-mode .analysis-progress {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* Error Message */
@@ -411,6 +546,71 @@ body.dark-mode .ats-recs li {
   color: rgba(255, 255, 255, 0.7);
 }
 
+/* ATS Explanations */
+.ats-explanations {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(86, 57, 254, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(86, 57, 254, 0.1);
+}
+
+body.dark-mode .ats-explanations {
+  background: rgba(86, 57, 254, 0.05);
+  border-color: rgba(86, 57, 254, 0.2);
+}
+
+.ats-explanations h4 {
+  margin: 0 0 1rem 0;
+  color: #5639fe;
+  font-size: 1.1rem;
+}
+
+body.dark-mode .ats-explanations h4 {
+  color: #66e8fd;
+}
+
+.explanation-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.explanation-item {
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  border-left: 3px solid;
+  border-image: linear-gradient(135deg, #5639fe, #66e8fd) 1;
+}
+
+body.dark-mode .explanation-item {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.explanation-item strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+body.dark-mode .explanation-item strong {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.explanation-item p {
+  margin: 0;
+  color: #666;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+body.dark-mode .explanation-item p {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .content-scores-title {
   font-size: 1.5rem;
   font-weight: 600;
@@ -488,6 +688,13 @@ body.dark-mode .score-card span {
   font-weight: 600;
   color: #01091e;
   margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.insights-section h3 svg {
+  flex-shrink: 0;
 }
 
 body.dark-mode .insights-section h3 {
@@ -607,31 +814,28 @@ body.dark-mode .term-card {
   display: none;
 }
 
+/* Impact badge - Clean dot indicator (no emojis) */
 .impact-badge {
-  width: 24px;
-  height: 24px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.875rem;
   flex-shrink: 0;
+  position: relative;
 }
 
 .impact-badge.positive {
-  background: #d1fae5;
-  color: #065f46;
+  background: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
 }
 
 .impact-badge.negative {
-  background: #fee2e2;
-  color: #991b1b;
+  background: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
 }
 
 .impact-badge.neutral {
-  background: #fef3c7;
-  color: #92400e;
+  background: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
 }
 
 .term-name {
@@ -739,4 +943,3 @@ body.dark-mode .suggestion-reason {
     grid-template-columns: 1fr;
   }
 }
-

@@ -18,6 +18,9 @@
 
 import { useState } from "react";
 import Sidebar from "../components/Sidebar";
+import FeatureIcon from "../components/FeatureIcon";
+import CVProgressBar from "../components/CVProgressBar";
+import CVAnalysisSkeleton from "../components/CVAnalysisSkeleton";
 import "./CVAnalysisPage.css";
 
 // ============================================================================
@@ -51,6 +54,15 @@ interface ATSAnalysis {
   score: number; // 0-100 format compatibility
   issues: string[]; // List of problems
   recommendations: string[]; // How to fix
+  explanations?: {
+    // Detailed explanations
+    overall: string;
+    sections: string;
+    quantifications: string;
+    formatting: string;
+    keywords: string;
+    length: string;
+  };
 }
 
 /**
@@ -82,6 +94,7 @@ export default function CVAnalysisPage() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [analysisId, setAnalysisId] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -114,6 +127,7 @@ export default function CVAnalysisPage() {
     setIsAnalyzing(true);
     setError(null);
     setResult(null);
+    setAnalysisId(null);
 
     try {
       const formData = new FormData();
@@ -135,6 +149,12 @@ export default function CVAnalysisPage() {
         },
         body: formData,
       });
+
+      // Get analysis ID from response headers
+      const responseAnalysisId = response.headers.get("X-Analysis-ID");
+      if (responseAnalysisId) {
+        setAnalysisId(responseAnalysisId);
+      }
 
       if (response.ok) {
         const data = await response.json();
@@ -209,7 +229,9 @@ export default function CVAnalysisPage() {
                       id="cv-upload"
                     />
                     <label htmlFor="cv-upload" className="file-upload-label">
-                      <div className="upload-icon">📄</div>
+                      <div className="upload-icon">
+                        <FeatureIcon type="document" size={32} color="white" />
+                      </div>
                       <p>
                         {cvFile
                           ? `Selected: ${cvFile.name}`
@@ -236,7 +258,7 @@ export default function CVAnalysisPage() {
                 <textarea
                   placeholder="Paste the full job description here...
 
-💡 Tip: Copy the complete job posting including:
+Tip: Copy the complete job posting including:
 - Required skills and qualifications
 - Responsibilities
 - Experience requirements
@@ -267,33 +289,48 @@ export default function CVAnalysisPage() {
                 {isAnalyzing ? (
                   <>
                     <span className="spinner"></span>
-                    Analyzing...
+                    Analyzing... (20-40s)
                   </>
                 ) : (
                   "Analyze CV"
                 )}
               </button>
+
+              {/* Progress Bar */}
+              {isAnalyzing && (
+                <CVProgressBar
+                  analysisId={analysisId}
+                  onComplete={() => {
+                    // Analysis complete callback
+                    console.log("Analysis completed");
+                  }}
+                />
+              )}
+
+              {/* Skeleton Loading */}
+              {isAnalyzing && !analysisId && <CVAnalysisSkeleton />}
             </div>
           ) : (
             /* Results Display */
             <div className="analysis-results">
-              <h2>Analysis Complete! 🎉</h2>
+              <h2>Analysis Complete!</h2>
 
               {/* ATS Format Score - FEATURE A */}
               {result.atsAnalysis && (
                 <div className="ats-score-section">
-                  <h3>📋 ATS Format Compatibility</h3>
+                  <h3>ATS Format Compatibility</h3>
                   <div className="ats-score-display">
                     <div className="ats-score-circle">
                       {result.atsAnalysis.score}%
                     </div>
                     <div className="ats-score-info">
                       <p className="ats-score-label">
-                        {result.atsAnalysis.score >= 80
-                          ? "✅ Excellent - Your CV format is ATS-friendly"
-                          : result.atsAnalysis.score >= 60
-                          ? "⚠️ Good - Minor improvements needed"
-                          : "❌ Needs Work - Format issues detected"}
+                        {result.atsAnalysis.explanations?.overall ||
+                          (result.atsAnalysis.score >= 80
+                            ? "Excellent - Your CV format is ATS-friendly"
+                            : result.atsAnalysis.score >= 60
+                            ? "Good - Minor improvements needed"
+                            : "Needs Work - Format issues detected")}
                       </p>
                       {result.atsAnalysis.issues.length > 0 && (
                         <div className="ats-issues">
@@ -319,6 +356,37 @@ export default function CVAnalysisPage() {
                       )}
                     </div>
                   </div>
+
+                  {/* Detailed ATS Explanations */}
+                  {result.atsAnalysis.explanations && (
+                    <div className="ats-explanations">
+                      <h4>Detailed Analysis</h4>
+                      <div className="explanation-grid">
+                        <div className="explanation-item">
+                          <strong>Sections:</strong>
+                          <p>{result.atsAnalysis.explanations.sections}</p>
+                        </div>
+                        <div className="explanation-item">
+                          <strong>Quantifications:</strong>
+                          <p>
+                            {result.atsAnalysis.explanations.quantifications}
+                          </p>
+                        </div>
+                        <div className="explanation-item">
+                          <strong>Formatting:</strong>
+                          <p>{result.atsAnalysis.explanations.formatting}</p>
+                        </div>
+                        <div className="explanation-item">
+                          <strong>Keywords:</strong>
+                          <p>{result.atsAnalysis.explanations.keywords}</p>
+                        </div>
+                        <div className="explanation-item">
+                          <strong>Length:</strong>
+                          <p>{result.atsAnalysis.explanations.length}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -365,7 +433,7 @@ export default function CVAnalysisPage() {
               {/* Strengths & Weaknesses */}
               {result.strengths && result.strengths.length > 0 && (
                 <div className="insights-section">
-                  <h3>✅ Strengths</h3>
+                  <h3>Strengths</h3>
                   <ul>
                     {result.strengths.map((strength, idx) => (
                       <li key={idx}>{strength}</li>
@@ -376,7 +444,7 @@ export default function CVAnalysisPage() {
 
               {result.weaknesses && result.weaknesses.length > 0 && (
                 <div className="insights-section">
-                  <h3>⚠️ Areas for Improvement</h3>
+                  <h3>Areas for Improvement</h3>
                   <ul>
                     {result.weaknesses.map((weakness, idx) => (
                       <li key={idx}>{weakness}</li>
@@ -388,7 +456,10 @@ export default function CVAnalysisPage() {
               {/* Recommendations */}
               {result.recommendations && result.recommendations.length > 0 && (
                 <div className="insights-section">
-                  <h3>💡 Recommendations</h3>
+                  <h3>
+                    <FeatureIcon type="alert" size={24} />
+                    <span>Recommendations</span>
+                  </h3>
                   <ul>
                     {result.recommendations.map((rec, idx) => (
                       <li key={idx}>{rec}</li>
@@ -400,7 +471,7 @@ export default function CVAnalysisPage() {
               {/* Term Analysis with Suggestions */}
               {result.termAnalysis && result.termAnalysis.length > 0 && (
                 <div className="term-analysis-section">
-                  <h3>🔍 Detailed Term Analysis</h3>
+                  <h3>Detailed Term Analysis</h3>
                   <p className="section-hint">
                     Click on a term to see improvement suggestions
                   </p>
@@ -409,13 +480,9 @@ export default function CVAnalysisPage() {
                     {result.termAnalysis.map((item, idx) => (
                       <details key={idx} className={`term-card ${item.impact}`}>
                         <summary className="term-header">
-                          <span className={`impact-badge ${item.impact}`}>
-                            {item.impact === "positive"
-                              ? "✓"
-                              : item.impact === "negative"
-                              ? "✗"
-                              : "~"}
-                          </span>
+                          <span
+                            className={`impact-badge ${item.impact}`}
+                          ></span>
                           <span className="term-name">{item.term}</span>
                           <span className="term-score">{item.score}%</span>
                         </summary>

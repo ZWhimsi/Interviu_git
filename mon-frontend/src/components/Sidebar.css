@@ -129,6 +129,45 @@
   box-shadow: 0 2px 8px rgba(86, 57, 254, 0.3);
 }
 
+.role-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.role-btn.loading {
+  pointer-events: none;
+}
+
+/* Loading dots animation */
+.loading-dots {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.loading-dots span {
+  display: inline-block;
+  animation: loadingDot 1.4s infinite;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes loadingDot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.3;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
 /* Navigation */
 .sidebar-nav {
   flex: 1;
@@ -209,8 +248,17 @@
 }
 
 .interview-icon {
-  font-size: 1.125rem;
   flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.interview-icon svg {
+  width: 16px;
+  height: 16px;
 }
 
 .interview-info {
@@ -363,9 +411,16 @@
 }
 
 .dropdown-icon {
-  font-size: 1.125rem;
   width: 20px;
-  text-align: center;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown-icon svg {
+  width: 16px;
+  height: 16px;
 }
 
 /* Responsive */
@@ -383,5 +438,3 @@
     transform: translateX(0);
   }
 }
-
-

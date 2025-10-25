@@ -241,7 +241,9 @@ export default function SignInPage() {
 
             <button
               type="submit"
-              className={`signin-button ${isLoading ? "loading" : ""}`}
+              className={`btn btn--gradient btn--full btn--mt ${
+                isLoading ? "btn--loading" : ""
+              }`}
               disabled={isLoading}
             >
               {isLoading ? "Signing In..." : "Sign In"}

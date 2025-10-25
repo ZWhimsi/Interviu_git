@@ -20,6 +20,7 @@
 import { useState } from "react";
 import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
+import FeatureIcon from "../components/FeatureIcon";
 import "../components/Footer.css";
 import "../components/PageHeader.css";
 import "./ContactPage.css";
@@ -150,14 +151,18 @@ export default function ContactPage() {
 
             <div className="contact-methods">
               <div className="contact-method">
-                <div className="method-icon">📧</div>
+                <div className="method-icon">
+                  <FeatureIcon type="email" size={24} color="white" />
+                </div>
                 <div>
                   <h4>Email</h4>
                   <p>contact@interviu.fr</p>
                 </div>
               </div>
               <div className="contact-method">
-                <div className="method-icon">💬</div>
+                <div className="method-icon">
+                  <FeatureIcon type="search" size={24} color="white" />
+                </div>
                 <div>
                   <h4>Live Chat</h4>
                   <p>Available 9am-5pm EST</p>
@@ -238,7 +243,9 @@ export default function ContactPage() {
 
             <button
               type="submit"
-              className="submit-btn"
+              className={`btn btn--gradient btn--full ${
+                isSubmitting ? "btn--loading" : ""
+              }`}
               disabled={isSubmitting}
             >
               {isSubmitting ? "Sending..." : "Send Message"}

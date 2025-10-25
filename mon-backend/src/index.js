@@ -8,6 +8,8 @@ const authRoutes = require("./routes/authRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 const cvRoutes = require("./routes/cvRoutes");
+const contactRoutes = require("./routes/contactRoutes");
+const progressRoutes = require("./routes/progressRoutes");
 
 // Load environment variables
 dotenv.config();
@@ -39,6 +41,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/cv", cvRoutes);
+app.use("/api/contact", contactRoutes);
+app.use("/api/progress", progressRoutes);
 
 // Default route
 app.get("/", (req, res) => {

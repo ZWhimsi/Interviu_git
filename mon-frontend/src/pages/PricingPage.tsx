@@ -16,12 +16,26 @@
 
 import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
+import FeatureIcon from "../components/FeatureIcon";
 import "../components/Footer.css";
 import "../components/PageHeader.css";
 import "./PricingPage.css";
 
+interface PricingPlan {
+  name: string;
+  price: string;
+  period: string;
+  description: string;
+  features: string[];
+  limitations?: string[];
+  badge?: string;
+  savings?: string;
+  cta: string;
+  highlighted: boolean;
+}
+
 export default function PricingPage() {
-  const plans = [
+  const plans: PricingPlan[] = [
     {
       name: "Free",
       price: "$0",
@@ -34,6 +48,11 @@ export default function PricingPage() {
         "Standard question library",
         "Email support",
       ],
+      limitations: [
+        "No video interviews",
+        "Limited analytics",
+        "Basic CV analysis",
+      ],
       cta: "Get Started",
       highlighted: false,
     },
@@ -44,14 +63,18 @@ export default function PricingPage() {
       description: "For serious job seekers",
       features: [
         "Unlimited practice sessions",
-        "Advanced AI feedback",
+        "Advanced AI feedback with GPT-4",
         "Voice & video interviews",
         "Full question library + courses",
         "CV similarity analysis",
         "Priority support",
         "Progress tracking & analytics",
+        "Mock interviews with AI",
+        "Interview recordings",
       ],
-      cta: "Start Free Trial",
+      badge: "MOST POPULAR",
+      savings: "Save 20% annually",
+      cta: "Start 14-Day Free Trial",
       highlighted: true,
     },
     {
@@ -67,6 +90,8 @@ export default function PricingPage() {
         "API access",
         "Dedicated account manager",
         "Custom integrations",
+        "SSO & advanced security",
+        "White-label options",
       ],
       cta: "Contact Sales",
       highlighted: false,
@@ -96,7 +121,9 @@ export default function PricingPage() {
               }`}
             >
               {plan.highlighted && (
-                <div className="popular-badge">Most Popular</div>
+                <div className="popular-badge">
+                  {plan.badge || "Most Popular"}
+                </div>
               )}
               <div className="plan-header">
                 <h3>{plan.name}</h3>
@@ -105,15 +132,30 @@ export default function PricingPage() {
                   <span className="period">/{plan.period}</span>
                 </div>
                 <p className="plan-description">{plan.description}</p>
+                {plan.savings && (
+                  <div className="plan-savings">{plan.savings}</div>
+                )}
               </div>
               <ul className="plan-features">
                 {plan.features.map((feature, idx) => (
                   <li key={idx}>
-                    <span className="feature-check">✓</span>
+                    <span className="feature-check">
+                      <FeatureIcon type="check" size={16} />
+                    </span>
                     {feature}
                   </li>
                 ))}
               </ul>
+              {plan.limitations && (
+                <ul className="plan-limitations">
+                  {plan.limitations.map((limitation, idx) => (
+                    <li key={idx}>
+                      <span className="limitation-x">×</span>
+                      {limitation}
+                    </li>
+                  ))}
+                </ul>
+              )}
               <button
                 className={`plan-cta ${
                   plan.highlighted ? "primary" : "secondary"
@@ -124,10 +166,44 @@ export default function PricingPage() {
             </div>
           ))}
         </div>
+
+        {/* FAQ Section */}
+        <div className="pricing-faq">
+          <h2>Frequently Asked Questions</h2>
+          <div className="faq-grid">
+            <div className="faq-item">
+              <h3>Can I change plans anytime?</h3>
+              <p>
+                Yes, you can upgrade or downgrade your plan at any time. Changes
+                take effect immediately.
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3>Is there a free trial?</h3>
+              <p>
+                Yes! All paid plans include a 14-day free trial. No credit card
+                required to start.
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3>What payment methods do you accept?</h3>
+              <p>
+                We accept all major credit cards, PayPal, and wire transfers for
+                Enterprise plans.
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3>Can I cancel my subscription?</h3>
+              <p>
+                Yes, you can cancel anytime. You'll continue to have access
+                until the end of your billing period.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <Footer />
     </div>
   );
 }
-

@@ -202,37 +202,11 @@
   text-decoration: underline;
 }
 
-.signin-button {
-  width: 100%;
-  margin-top: 1rem;
-  background: linear-gradient(
-    to right,
-    var(--gradient-start),
-    var(--gradient-end)
-  );
-  color: white;
-  font-weight: 600;
-  padding: 0.875rem 1rem;
-  border-radius: 0.625rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(86, 57, 254, 0.2);
-  position: relative;
-  overflow: hidden;
-}
+/* Sign In button - Now using modular button system from index.css */
+/* Classes: .btn .btn--gradient .btn--full .btn--loading */
 
-.signin-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(86, 57, 254, 0.25);
-}
-
-.signin-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(86, 57, 254, 0.2);
-}
-
-.signin-button::after {
+/* Additional shine effect for sign in page buttons */
+.signin-form .btn--gradient::after {
   content: "";
   position: absolute;
   top: -50%;
@@ -250,32 +224,12 @@
   opacity: 0;
 }
 
-.signin-button:hover::after {
+.signin-form .btn--gradient:hover::after {
   transform: rotate(30deg) translate(100%, 0);
   opacity: 1;
 }
 
-.signin-button.loading {
-  background: linear-gradient(
-    to right,
-    var(--gradient-start),
-    var(--gradient-end)
-  );
-  background-size: 200% 100%;
-  animation: gradient-shift 2s ease infinite;
-}
-
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
+/* @keyframes gradient-shift moved to index.css for global usage */
 
 /* Social buttons section - updated for dark background */
 .signin-social-buttons {

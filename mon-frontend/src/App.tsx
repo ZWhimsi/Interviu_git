@@ -126,7 +126,14 @@ export default function App() {
 
   return (
     <DarkModeProvider>
-      <AuthProvider>{renderPage()}</AuthProvider>
+      <AuthProvider>
+        <div
+          id="app-container"
+          style={{ minHeight: "100vh", background: "inherit" }}
+        >
+          {renderPage()}
+        </div>
+      </AuthProvider>
     </DarkModeProvider>
   );
 }
